@@ -1,5 +1,4 @@
 package tp.pr3.byteCode;
-//prueba de cambio
 import tp.pr3.cpu.CPU;
 
 /**
@@ -9,6 +8,7 @@ import tp.pr3.cpu.CPU;
  */
 public interface ByteCode {
 
+	public void hola(){}
 	/**
 	 * Ejecutará la instrucción correspondiente sobre la cpu dada como parametro
 	 * @param cpu, Una CPU sobre la cual ejecutaremos las instrucciones ByteCode
