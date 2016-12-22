@@ -12,14 +12,6 @@ import tp.pr3.cpu.CPU;
  */
 abstract public class ConditionalJumps implements ByteCode{
 	/**
-	 * Operando 1 de la condicion
-	 */
-	protected int op1;
-	/**
-	 * Operando 2 de la condicion
-	 */
-	protected int op2;
-	/**
 	 * Posicion a la que debe saltar el contador del programa si no se cumple la condicion
 	 */
 	protected int jump;
@@ -43,18 +35,19 @@ abstract public class ConditionalJumps implements ByteCode{
 	 * @return boolean, true si se han podido extraer, false eoc
 	 */
 	public boolean execute(CPU cpu){
+		int op1 = 0, op2 = 0;
 		if(!cpu.empty()){
 			op1=cpu.pop();
 		}
 		if(!cpu.empty()){
 			op2=cpu.pop();
-			executeAux(cpu);
+			executeAux(cpu, op1, op2);
 		}
 		else
 			return false;
 		return true;
 	}
-	public abstract boolean executeAux(CPU cpu);
+	public abstract boolean executeAux(CPU cpu, int op1, int op2);
 	
 	/**
 	 * Metodo que comprueba que la longitud de la instrucción es la adecuada (dos)

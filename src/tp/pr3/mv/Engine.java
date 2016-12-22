@@ -1,8 +1,11 @@
 package tp.pr3.mv;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Scanner;
 
+import tp.pr3.analyze.SourceProgram;
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.byteCode.ByteCodeParser;
 import tp.pr3.byteCode.ByteCodeProgram;
@@ -10,21 +13,24 @@ import tp.pr3.command.Command;
 import tp.pr3.command.CommandParser;
 import tp.pr3.command.Help;
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.ArrayException;
 
 
 /**
- * Clase que lleva el funcionamiento del programa en sí
+ * Clase que lleva el funcionamiento del bytecodePrograma en sí
  * @author Claudia Guerrero y Rafael Herrera
  * @version 2.0
  */
 public class Engine {
 	
+	private SourceProgram sProgram;
+	private ParsedProgram parsedProgam;
 	/**
-	 * Programa guardado
+	 * bytecodePrograma guardado
 	 */
-	private ByteCodeProgram program;
+	private ByteCodeProgram bytecodeProgram;
 	/**
-	 * Booleano que indica si se ha ordenado que se cierre el programa
+	 * Booleano que indica si se ha ordenado que se cierre el bytecodePrograma
 	 */
 	private boolean end;
 	/**
@@ -34,16 +40,16 @@ public class Engine {
 	
 	/**
 	 * Constructor de la clase Engine
-	 * Inicializa this.program a un nuevo programa con su constructor
+	 * Inicializa this.bytecodeProgram a un nuevo bytecodePrograma con su constructor
 	 * Inicializa this.end a false
 	 */
 	public Engine(){
-		this.program = new ByteCodeProgram();
+		this.bytecodeProgram = new ByteCodeProgram();
 		this.end = false;
 	}
 
 	/**
-	 * Guia el desarrollo del programa
+	 * Guia el desarrollo del bytecodePrograma
 	 * Lee el comando, lo interpreta y luego comprueba si es valido y lo ejecuta
 	 * Repite este proceso hasta que se lee this.end es true
 	 */
@@ -59,7 +65,7 @@ public class Engine {
 				if (!comando1.execute(this))
 					System.out.println("Error: Ejecución incorrecta del comando");
 				else if (comando1.getClass() != Help.class)
-					System.out.println("\nPrograma almacenado:\n\n" + program);
+					System.out.println("\nbytecodePrograma almacenado:\n\n" + bytecodeProgram);
 			}
 		} while(!this.end);
 		System.out.println("Fin de la ejecucion....");
@@ -82,48 +88,35 @@ public class Engine {
 		CommandParser.showHelp();
 		return true;
 	}
-	/**
-	 * Lee las instrucciones del ByteCodeProgram introducidas por pantalla hasta la
-	 * instruccion END y comprueba que son correctas
-	 * @return boolean true
-	 */
-	public boolean readByteCodeProgram(){
-		String instruc = new String();
-		System.out.println("Introduzca el bytecode. Una instrucción por línea:\n");
-		instruc=entrada.nextLine();
-		while(!instruc.toUpperCase().equals("END")){
-			ByteCode ins = ByteCodeParser.parse(instruc);
-			if (ins!=null){
-				program.add(ins);
+	
+	public boolean loadFich(String fich){
+		BufferedReader flujoEnt = new BufferedReader(new FileReader(fich));
+		String line;
+		boolean end = false;
+		while(end && (line = flujoEnt.readLine()) != null){
+			try{
+				sProgram.write(line);
 			}
-			else
-				System.out.println("Instrucción incorrecta\n");
-			instruc=entrada.nextLine();
+			catch (ArrayException e){
+				System.out.println(e + "Array lleno");
+				end = true;
+			}
 		}
-		
 		return true;
 	}
 	/**
-	 * Ejecuta el programa guardado en this.program instruccion a instruccion hasta que una de las instrucciones no se ejecuta correctamente, hasta que 
-	 * program.end es true o hasta que se terminan las instrucciones, y va escribiendo el mensaje correspondiente con la ejecucion de cada instruccion
+	 * Ejecuta el bytecodePrograma guardado en this.bytecodeProgram instruccion a instruccion hasta que una de las instrucciones no se ejecuta correctamente, hasta que 
+	 * bytecodeProgram.end es true o hasta que se terminan las instrucciones, y va escribiendo el mensaje correspondiente con la ejecucion de cada instruccion
 	 *@return OK Un boolean que es true si todo se ha realizado correctamente y false eoc
 	 */
 	public boolean runProgram(){
-		CPU cpu = new CPU(this.program);
+		CPU cpu = new CPU(this.bytecodeProgram);
 		boolean OK = cpu.run();
 		if(OK) {
-			System.out.println("El estado de la máquina tras ejecutar el programa es:\n");
+			System.out.println("El estado de la máquina tras ejecutar el bytecodePrograma es:\n");
 			System.out.println(cpu.toString());
 		}
 		return OK;
-	}
-	/**
-	 * Resetea this.program iniciandolo a uno nuevo utilizando el constructor de ByteCodeProgram
-	 * @return true en todo caso
-	 */
-	public boolean resetProgram(){
-		this.program = new ByteCodeProgram();
-		return true;
 	}
 	/**
 	 * Si la posicion dada es correcta, pide una instruccion para sustituir la que se encuentra en esa posicion y, si la instruccion que
@@ -133,12 +126,12 @@ public class Engine {
 	 */
 	public boolean replaceInstruc(int pos){
 		boolean OK = false;
-		if (pos < this.program.size() && pos >= 0) {
+		if (pos < this.bytecodeProgram.size() && pos >= 0) {
 			System.out.println("Nueva instruccion: ");
 			String newInst = Engine.entrada.nextLine();
 			ByteCode nuevaInst = ByteCodeParser.parse(newInst);
 			if (nuevaInst != null) {
-				this.program.emplace(nuevaInst, pos);
+				this.bytecodeProgram.emplace(nuevaInst, pos);
 				OK = true;
 			}
 		}

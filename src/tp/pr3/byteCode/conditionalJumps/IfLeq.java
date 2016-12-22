@@ -35,7 +35,7 @@ public class IfLeq extends ConditionalJumps{
 	 * @param cpu Una CPU de cuya pila vamos a extraer los operandos
 	 * @return boolean, true si ha podido realizarse la modificacion del contador y false eoc
 	 */
-	public boolean executeAux(CPU cpu){
+	public boolean executeAux(CPU cpu, int op1, int op2){
 		if(op2>op1)
 			return cpu.changeCounter(jump);
 		return true;

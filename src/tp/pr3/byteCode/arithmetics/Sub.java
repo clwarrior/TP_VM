@@ -24,7 +24,7 @@ public class Sub extends Arithmetics{
 	 * el resultado
 	 * @return boolean, true si ha podido realizarse la operacion y false eoc
 	 */
-	public boolean executeAux(CPU cpu){
+	public boolean executeAux(CPU cpu, int op1, int op2){
 		boolean ok = false;
 		int result = op2 - op1;
 		ok = cpu.push(result);

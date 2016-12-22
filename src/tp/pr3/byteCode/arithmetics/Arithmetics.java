@@ -13,40 +13,25 @@ import tp.pr3.cpu.CPU;
 abstract public class Arithmetics implements ByteCode{
 	
 	/**
-	 * Operando 1 para realizar las operaciones
-	 */
-	protected int op1;
-	/**
-	 * Operando 2 para realizar las operaciones
-	 */
-	protected int op2;
-	
-	/**
-	 * Constructor de la clase Arithmetics()
-	 */
-	public Arithmetics(){
-		this.op1 = 0;
-		this.op2 = 0;
-	}
-	/**
 	 * Metodo que dada una cpu, extrae los los operandos de la pila de la cpu siempre que 
 	 * ésta no esté vacía
 	 * @param cpu, de la cual extraemos los valores de los operandos
 	 * @return boolean, true si se han podido extraer, false eoc
 	 */
 	public boolean execute(CPU cpu){
+		int op1 = 0, op2 = 0;
 		if(!cpu.empty()){
 			op1=cpu.pop();
 		}
 		if(!cpu.empty()){
 			op2=cpu.pop();
-			executeAux(cpu);
+			executeAux(cpu, op1, op2);
 		}
 		else
 			return false;
 		return true;
 	}
-	public abstract boolean executeAux(CPU cpu);
+	public abstract boolean executeAux(CPU cpu, int op1, int op2);
 	/**
 	 * Metodo que comprueba que la longitud de la instrucción es la adecuada
 	 * @param s, Un array es el nombre de la instrucción

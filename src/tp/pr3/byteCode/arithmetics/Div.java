@@ -24,7 +24,7 @@ public class Div extends Arithmetics{
 	 * el resultado
 	 * @return boolean, true si ha podido realizarse la operacion y false eoc como que la cima sea cero
 	 */
-	public boolean executeAux(CPU cpu){
+	public boolean executeAux(CPU cpu, int op1, int op2){
 		int result = 0;
 		boolean ok = false;
 		if(op1 != 0){
