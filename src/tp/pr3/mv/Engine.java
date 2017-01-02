@@ -6,12 +6,8 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 import tp.pr3.analyze.SourceProgram;
-import tp.pr3.byteCode.ByteCode;
-import tp.pr3.byteCode.ByteCodeParser;
-import tp.pr3.byteCode.ByteCodeProgram;
-import tp.pr3.command.Command;
-import tp.pr3.command.CommandParser;
-import tp.pr3.command.Help;
+import tp.pr3.byteCode.*;
+import tp.pr3.command.*;
 import tp.pr3.cpu.CPU;
 import tp.pr3.exceptions.ArrayException;
 

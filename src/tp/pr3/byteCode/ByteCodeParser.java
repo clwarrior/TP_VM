@@ -1,15 +1,8 @@
 package tp.pr3.byteCode;
 
-import tp.pr3.byteCode.arithmetics.Add;
-import tp.pr3.byteCode.arithmetics.Div;
-import tp.pr3.byteCode.arithmetics.Mul;
-import tp.pr3.byteCode.arithmetics.Sub;
-import tp.pr3.byteCode.conditionalJumps.IfEq;
-import tp.pr3.byteCode.conditionalJumps.IfLe;
-import tp.pr3.byteCode.conditionalJumps.IfLeq;
-import tp.pr3.byteCode.conditionalJumps.IfNeq;
-import tp.pr3.byteCode.memoryMove.Load;
-import tp.pr3.byteCode.memoryMove.Store;
+import tp.pr3.byteCode.arithmetics.*;
+import tp.pr3.byteCode.conditionalJumps.*;
+import tp.pr3.byteCode.memoryMove.*;
 
 /**
  * Clase que se encarga de interpretar los ByteCode
