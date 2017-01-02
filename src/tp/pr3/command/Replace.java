@@ -33,8 +33,8 @@ public class Replace implements Command{
 	 * replace del programa que tiene almacenado
 	 * @param engine, que queremos que reemplace una instruccion de su programa almacenado
 	 */
-	public boolean execute(Engine engine){
-		return engine.replaceInstruc(replace);
+	public void execute(Engine engine){
+		engine.replaceInstruc(replace);
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "replace" 

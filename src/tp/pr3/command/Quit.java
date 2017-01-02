@@ -15,8 +15,8 @@ public class Quit implements Command{
 	 * que acaba el programa de byteCodes
 	 * @return true
 	 */
-	public boolean execute(Engine engine){
-		return engine.quitProgram();
+	public void execute(Engine engine){
+		engine.quitProgram();
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "quit" 

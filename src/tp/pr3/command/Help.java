@@ -16,8 +16,8 @@ public class Help implements Command{
 	 * su programa de byteCodes
 	 * @param engine, que queremos que muestre la ayuda
 	 */
-	public boolean execute(Engine engine){
-		return engine.showHelp();
+	public void execute(Engine engine){
+		engine.showHelp();
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "help" 

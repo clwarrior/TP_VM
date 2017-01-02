@@ -11,8 +11,8 @@ public class LoadFich implements Command{
 		this.fich = fich;
 	}
 	
-	public boolean execute(Engine engine) {
-		return engine.loadFich(fich);
+	public void execute(Engine engine) {
+		engine.loadFich(fich);
 	}
 
 	public Command parse(String[] s) {

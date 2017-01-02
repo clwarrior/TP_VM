@@ -15,8 +15,8 @@ public class Run implements Command{
 	 * Metodo que hace que el engine dado por parametro ejecute el programa que tiene almacenado
 	 * @param engine, que queremos que ejecute su programa almacenado
 	 */
-	public boolean execute(Engine engine){
-		return engine.runProgram();
+	public void execute(Engine engine){
+		engine.runProgram();
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "run" 

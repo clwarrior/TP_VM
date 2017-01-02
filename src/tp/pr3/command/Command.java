@@ -14,7 +14,7 @@ public interface Command {
 	 * @param engine Un Engine sobre el cual ejecutaremos los comandos
 	 * @return boolean
 	 */
-	abstract public boolean execute(Engine engine);
+	abstract public void execute(Engine engine);
 	/**
 	 * Metodo abstacto con el cual cada comando se creara si el string dado corresponde con 
 	 * el nombre del comando

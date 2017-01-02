@@ -13,7 +13,7 @@ public class CommandParser {
 	 * Array que contiene un comando de cada uno de los tipos existentes
 	 */
 	private final static Command[] commands = {
-		new Help(), new Quit(), new Replace(), new Run()};
+		new Help(), new Quit(), new Replace(), new Run(), new LoadFich(), new Compile()};
 
 	/**
 	 * Dado un String que contiene la instruccion, la interpreta y la convierte en un comando valido si puede
