@@ -10,6 +10,7 @@ import tp.pr3.byteCode.*;
 import tp.pr3.command.*;
 import tp.pr3.cpu.CPU;
 import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.ExecutionError;
 
 
 /**
@@ -60,8 +61,10 @@ public class Engine {
 				System.out.println("Comienza la ejecución de " + comando1.toString());
 				if (!comando1.execute(this))
 					System.out.println("Error: Ejecución incorrecta del comando");
-				else if (comando1.getClass() != Help.class)
-					System.out.println("\nbytecodePrograma almacenado:\n\n" + bytecodeProgram);
+				else if (comando1.getClass() != Help.class) {
+					System.out.println("\nPrograma fuente almacenado:\n\n" + sProgram);
+					System.out.println("\nPrograma bytecode almacenado:\n\n" + bytecodeProgram);
+				}
 			}
 		} while(!this.end);
 		System.out.println("Fin de la ejecucion....");
@@ -72,47 +75,47 @@ public class Engine {
 	 * Pone el valor de this.end a true
 	 * @return boolean true
 	 */
-	public boolean quitProgram(){
+	public void quitProgram(){
 		this.end = true;
-		return true;
 	}
 	/**
 	 * LLama al metodo showHelp de la clase CommandParser 
 	 * @return boolean true
 	 */
-	public boolean showHelp(){
+	public void showHelp(){
 		CommandParser.showHelp();
-		return true;
 	}
 	
-	public boolean loadFich(String fich){
+	public void loadFich(String fich){
 		BufferedReader flujoEnt = new BufferedReader(new FileReader(fich));
 		String line;
-		boolean end = false;
-		while(end && (line = flujoEnt.readLine()) != null){
-			try{
+		try {
+			while((line = flujoEnt.readLine()) != null)
 				sProgram.write(line);
-			}
-			catch (ArrayException e){
-				System.out.println(e + "Array lleno");
-				end = true;
-			}
 		}
-		return true;
+		catch (ArrayException e){
+			System.out.println(e);
+		}
+	}
+	
+	public void compile() {
+		
 	}
 	/**
 	 * Ejecuta el bytecodePrograma guardado en this.bytecodeProgram instruccion a instruccion hasta que una de las instrucciones no se ejecuta correctamente, hasta que 
 	 * bytecodeProgram.end es true o hasta que se terminan las instrucciones, y va escribiendo el mensaje correspondiente con la ejecucion de cada instruccion
 	 *@return OK Un boolean que es true si todo se ha realizado correctamente y false eoc
 	 */
-	public boolean runProgram(){
+	public void runProgram(){
 		CPU cpu = new CPU(this.bytecodeProgram);
-		boolean OK = cpu.run();
-		if(OK) {
+		try{
+			cpu.run();
 			System.out.println("El estado de la máquina tras ejecutar el bytecodePrograma es:\n");
 			System.out.println(cpu.toString());
 		}
-		return OK;
+		catch (ExecutionError e){
+			System.out.println(e);
+		}
 	}
 	/**
 	 * Si la posicion dada es correcta, pide una instruccion para sustituir la que se encuentra en esa posicion y, si la instruccion que

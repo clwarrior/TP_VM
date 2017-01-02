@@ -2,6 +2,7 @@ package tp.pr3.cpu;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.byteCode.ByteCodeProgram;
+import tp.pr3.exceptions.ExecutionError;
 
 /**
  * Clase que contiene los metodos y atributos de la CPU
@@ -51,14 +52,13 @@ public class CPU {
 	 * @return Un boolean que es true si se han podido ejecutar todas las instrucciones
 	 * y false si alguna no se ha podido ejecutar
 	 */
-	public boolean run(){
-		boolean ok = true;
-		while(!end && this.programCounter < bcProgram.size() && ok){
+	public void run() throws ExecutionError{
+		while(!end && this.programCounter < bcProgram.size()){
 			ByteCode instruccion = bcProgram.at(this.programCounter);
 			++programCounter;
-			ok = instruccion.execute(this);
+			if(!instruccion.execute(this))
+				throw new ExecutionError("ByteCode: " + instruccion);
 		}
-		return ok;
 	}
 	/**
 	 * Devuelve el estado de this.end
