@@ -4,7 +4,13 @@ public class ExecutionError extends Exception{
 
 	private static final long serialVersionUID = 1L;
 
-	public ExecutionError(String message) {
-		super(message);
+	private String message;
+
+	public ExecutionError(String string) {
+		this.message = string;
+	}
+	
+	public String toString(){
+		return "Error: ExecutionError " + message;
 	}
 }

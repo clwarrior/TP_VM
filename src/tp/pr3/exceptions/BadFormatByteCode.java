@@ -4,8 +4,13 @@ public class BadFormatByteCode extends Exception{
 
 	private static final long serialVersionUID = 1L;
 
-	public BadFormatByteCode(String message) {
-		super(message);
+	private String message;
+
+	public BadFormatByteCode(String string) {
+		this.message = string;
 	}
 	
+	public String toString(){
+		return "Error: BadFormatByteCode " + message;
+	}
 }
