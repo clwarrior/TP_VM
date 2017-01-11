@@ -22,4 +22,10 @@ public class SourceProgram {
 			++last;
 		}
 	}
+	public String at(int pos){
+		return sProgram[pos];
+	}
+	public int length(){
+		return last;
+	}
 }

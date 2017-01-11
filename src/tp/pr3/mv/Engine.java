@@ -98,7 +98,17 @@ public class Engine {
 		}
 	}
 	
-	public void compile() {
+	public void compile() throws ___{
+		try{
+			this.lexicalAnalysis();
+			this.generateByteCode();
+		}
+	catch ___
+	}
+	private void lexicalAnalysis(){
+		
+	}
+	private void generateByteCode(){
 		
 	}
 	/**
