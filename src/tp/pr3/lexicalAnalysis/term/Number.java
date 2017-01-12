@@ -1,8 +1,6 @@
-package tp.pr3.mv;
+package tp.pr3.lexicalAnalysis.term;
 
 import tp.pr3.byteCode.ByteCode;
-import tp.pr3.lexicalAnalysis.term.Term;
-import tp.pr3.lexicalAnalysis.term.Variable;
 
 public class Number implements Term{
 	private int number_name;
@@ -11,14 +9,16 @@ public class Number implements Term{
 		this.number_name=term;
 	}
 
-	public Term parse(String term){
+	public Number() {}
+
+	public Term parse(String term) throws NumberFormatException{
 		if(term.length()!=1) return null;
 		else{
 			try{
-				Integer.parseInt(term);
-				return new Variable(term);
+				int num = Integer.parseInt(term);
+				return new Number(num);
 			}
-			catch (NumberFormatException nfe){//ESTO ESTA BIEN, ESTE TIPO DE EXCEPCION?
+			catch (NumberFormatException nfe){
 				return null;
 			}
 		}

@@ -9,12 +9,16 @@ public class Variable implements Term{
 		this.letter_name=term;
 	}
 
+	public Variable() {}
+
 	public Term parse(String term){
 		if(term.length()!=1) return null;
 		else{
 			char name = term.charAt(0);
-			if ('a' <= name && name <= 'z') return new Variable(term);
-			else return null;
+			if ('a' <= name && name <= 'z') 
+				return new Variable(term);
+			else 
+				return null;
 		}
 	}
 

@@ -11,16 +11,17 @@ public class LexicalParser {
 
 	public void lexicalParser(ParsedProgram pProgram, String stopKey) throws ArrayException {
 		boolean stop=false;
-		int cont=0;
-		while(!stop && cont<=sProgram.length()){
-			Instruction inst = ParserInstruction.parse(sProgram.at(cont), this);
-			pProgram.write(inst);
-			if(sProgram.at(cont)==stopKey){
-				stop=true;
+		while(!stop && this.programCounter<=sProgram.length()){
+			String instr = sProgram.at(this.programCounter);
+			if (instr.equalsIgnoreCase(stopKey)){
+					stop = true;
 			}
-			++cont;
+			else {
+				Instruction instruction = InstructionParser.parse(instr,this);
+				pProgram.write(instruction);
+			}
+			this.increaseProgramCounter();
 		}
-		
 	}
 
 	public void increaseProgramCounter() {

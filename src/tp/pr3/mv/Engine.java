@@ -9,8 +9,7 @@ import tp.pr3.analyze.SourceProgram;
 import tp.pr3.byteCode.*;
 import tp.pr3.command.*;
 import tp.pr3.cpu.CPU;
-import tp.pr3.exceptions.ArrayException;
-import tp.pr3.exceptions.ExecutionError;
+import tp.pr3.exceptions.*;
 
 
 /**
@@ -98,19 +97,24 @@ public class Engine {
 		}
 	}
 	
-	public void compile() throws ___{
+	public void compile() throws LexicalAnalysisException, ArrayException{
 		try{
 			this.lexicalAnalysis();
 			this.generateByteCode();
 		}
-	catch ___
+		catch ___
 	}
-	private void lexicalAnalysis(){
+	
+	private void lexicalAnalysis() throws LexicalAnalysisException{
+		try {
+			
+		}
+	}
+	
+	private void generateByteCode() throws ArrayException{
 		
 	}
-	private void generateByteCode(){
-		
-	}
+	
 	/**
 	 * Ejecuta el bytecodePrograma guardado en this.bytecodeProgram instruccion a instruccion hasta que una de las instrucciones no se ejecuta correctamente, hasta que 
 	 * bytecodeProgram.end es true o hasta que se terminan las instrucciones, y va escribiendo el mensaje correspondiente con la ejecucion de cada instruccion
