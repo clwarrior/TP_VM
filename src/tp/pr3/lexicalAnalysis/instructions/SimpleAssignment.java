@@ -13,6 +13,8 @@ public class SimpleAssignment implements Instruction {
 		this.var_name=name;
 		this.rhs=rhs;
 	}
+	public SimpleAssignment() {}
+	
 	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException{
 		char name = words[0].charAt(0);
 		if (!('a' <= name && name <= 'z') || words.length!=3 || !words[1].equals("="))

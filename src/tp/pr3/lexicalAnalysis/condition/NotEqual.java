@@ -3,6 +3,8 @@ package tp.pr3.lexicalAnalysis.condition;
 import tp.pr3.lexicalAnalysis.term.Term;
 
 public class NotEqual extends Condition{
+	
+	public NotEqual() {}
 
 	public NotEqual(Term term1, Term term2){
 		this.term1 = term1;

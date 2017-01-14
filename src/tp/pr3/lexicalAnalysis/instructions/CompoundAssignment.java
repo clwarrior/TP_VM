@@ -17,6 +17,8 @@ public class CompoundAssignment implements Instruction {
 		this.term1=term1;
 		this.term2=term2;
 	}
+	public CompoundAssignment() {}
+	
 	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException {
 		char name = words[0].charAt(0);
 		if (!('a' <= name && name <= 'z') || words.length!=5 || !words[1].equals("=") ||

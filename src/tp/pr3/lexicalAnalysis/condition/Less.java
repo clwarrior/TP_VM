@@ -4,6 +4,8 @@ import tp.pr3.lexicalAnalysis.term.Term;
 
 public class Less extends Condition{
 
+	public Less() {}
+	
 	public Less(Term term1, Term term2){
 		this.term1 = term1;
 		this.term2 = term2;

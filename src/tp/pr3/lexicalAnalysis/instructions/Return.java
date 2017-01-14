@@ -5,9 +5,11 @@ import tp.pr3.lexicalAnalysis.LexicalParser;
 public class Return implements Instruction {
 
 	@Override
-	public Instruction lexParse(String[] words, LexicalParser lexparser) {
-		// TODO Auto-generated method stub
-		return null;
+	public Instruction lexParse(String[] words, LexicalParser lexParser) {
+		Instruction inst = null;
+		if(words[0].equalsIgnoreCase("RETURN"))
+			inst = new Return();
+		return inst;
 	}
 
 	@Override

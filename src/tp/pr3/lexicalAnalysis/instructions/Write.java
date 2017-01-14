@@ -6,8 +6,10 @@ public class Write implements Instruction {
 
 	@Override
 	public Instruction lexParse(String[] words, LexicalParser lexparser) {
-		// TODO Auto-generated method stub
-		return null;
+		Instruction inst = null;
+		if(words[0].equalsIgnoreCase("WRITE"))
+			inst = new Write();
+		return inst;
 	}
 
 	@Override
