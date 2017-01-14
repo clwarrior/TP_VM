@@ -2,6 +2,7 @@ package tp.pr3.byteCode.conditionalJumps;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.ExecutionError;
 
 /**
  * Clase hija de la clase ConditionalJumps.
@@ -35,10 +36,9 @@ public class IfLeq extends ConditionalJumps{
 	 * @param cpu Una CPU de cuya pila vamos a extraer los operandos
 	 * @return boolean, true si ha podido realizarse la modificacion del contador y false eoc
 	 */
-	public boolean executeAux(CPU cpu, int op1, int op2){
+	public void executeAux(CPU cpu, int op1, int op2) throws ExecutionError{
 		if(op2>op1)
-			return cpu.changeCounter(jump);
-		return true;
+			cpu.changeCounter(jump);
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "ifleq" 

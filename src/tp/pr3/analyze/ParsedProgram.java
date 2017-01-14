@@ -16,14 +16,17 @@ public class ParsedProgram {
 	
 	public void write(Instruction inst) throws ArrayException{
 		if(last == MAX)
-			throw new ArrayException("Array lleno");
+			throw new ArrayException("(Límite de instrucciones sobrepasado)");
 		else{
 			pProgram[last] = inst;
 			++last;
 		}
 	}
-	public Instruction at(int pos){
-		return pProgram[pos];
+	public Instruction at(int pos) throws ArrayException{
+		if(pos >= 0 && pos < MAX)
+			return pProgram[pos];
+		else
+			throw new ArrayException("(Posición del array no válida)");
 	}
 	public int length(){
 		return last;

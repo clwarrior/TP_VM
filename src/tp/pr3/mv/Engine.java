@@ -2,14 +2,19 @@ package tp.pr3.mv;
 
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
+import tp.pr3.byteCodeGeneration.Compiler;
+import tp.pr3.analyze.ParsedProgram;
 import tp.pr3.analyze.SourceProgram;
 import tp.pr3.byteCode.*;
 import tp.pr3.command.*;
 import tp.pr3.cpu.CPU;
 import tp.pr3.exceptions.*;
+import tp.pr3.lexicalAnalysis.LexicalParser;
 
 
 /**
@@ -20,7 +25,7 @@ import tp.pr3.exceptions.*;
 public class Engine {
 	
 	private SourceProgram sProgram;
-	private ParsedProgram parsedProgam;
+	private ParsedProgram pProgram;
 	/**
 	 * bytecodePrograma guardado
 	 */
@@ -58,15 +63,26 @@ public class Engine {
 				System.out.println("Comando incorrecto");
 			else {
 				System.out.println("Comienza la ejecución de " + comando1.toString());
-				if (!comando1.execute(this))
-					System.out.println("Error: Ejecución incorrecta del comando");
-				else if (comando1.getClass() != Help.class) {
+				try {
+					comando1.execute(this);
+					if (comando1.getClass() != Help.class) {
+						System.out.println("\nPrograma fuente almacenado:\n\n" + sProgram);
+						if(bytecodeProgram.size() != 0)
+							System.out.println("\nPrograma bytecode almacenado:\n\n" + bytecodeProgram);
+					}
+				}
+				catch(ArrayException | LexicalAnalysisException | FileException | BadFormatByteCode 
+						| StackException | ExecutionError | CompilationError e){
+					System.out.println(e);
+				}
+				if (comando1.getClass() != Help.class) {
 					System.out.println("\nPrograma fuente almacenado:\n\n" + sProgram);
-					System.out.println("\nPrograma bytecode almacenado:\n\n" + bytecodeProgram);
+					if(bytecodeProgram.size() != 0)
+						System.out.println("\nPrograma bytecode almacenado:\n\n" + bytecodeProgram);
 				}
 			}
 		} while(!this.end);
-		System.out.println("Fin de la ejecucion....");
+		System.out.println("Cerrando máquina virtual...");
 		Engine.entrada.close();
 	}
 	
@@ -85,34 +101,38 @@ public class Engine {
 		CommandParser.showHelp();
 	}
 	
-	public void loadFich(String fich){
-		BufferedReader flujoEnt = new BufferedReader(new FileReader(fich));
+	public void loadFich(String fich) throws ArrayException, FileException{
+		BufferedReader flujoEnt = null;
+		try {
+			flujoEnt = new BufferedReader(new FileReader(fich));
+		} 
+		catch (FileNotFoundException e) {
+			throw new FileException("(Fichero no encontrado)");
+		}
 		String line;
 		try {
 			while((line = flujoEnt.readLine()) != null)
 				sProgram.write(line);
+			flujoEnt.close();
 		}
-		catch (ArrayException e){
-			System.out.println(e);
-		}
+		catch (IOException e) {
+			throw new FileException("(Error de lectura)");
+		} 
 	}
 	
-	public void compile() throws LexicalAnalysisException, ArrayException{
-		try{
-			this.lexicalAnalysis();
-			this.generateByteCode();
-		}
-		catch ___
+	public void compile() throws LexicalAnalysisException, ArrayException, CompilationError{
+		this.lexicalAnalysis();
+		this.generateByteCode();
 	}
 	
-	private void lexicalAnalysis() throws LexicalAnalysisException{
-		try {
-			
-		}
+	private void lexicalAnalysis() throws LexicalAnalysisException, ArrayException{
+		LexicalParser lexParser = new LexicalParser(sProgram);
+		lexParser.lexicalParser(this.pProgram, "END");
 	}
 	
-	private void generateByteCode() throws ArrayException{
-		
+	private void generateByteCode() throws ArrayException, CompilationError{
+		Compiler compiler = new Compiler(bytecodeProgram);
+		compiler.compile(pProgram);
 	}
 	
 	/**
@@ -120,16 +140,11 @@ public class Engine {
 	 * bytecodeProgram.end es true o hasta que se terminan las instrucciones, y va escribiendo el mensaje correspondiente con la ejecucion de cada instruccion
 	 *@return OK Un boolean que es true si todo se ha realizado correctamente y false eoc
 	 */
-	public void runProgram(){
+	public void runProgram() throws ArrayException, StackException, DivisionByZero, ExecutionError{
 		CPU cpu = new CPU(this.bytecodeProgram);
-		try{
-			cpu.run();
-			System.out.println("El estado de la máquina tras ejecutar el bytecodePrograma es:\n");
-			System.out.println(cpu.toString());
-		}
-		catch (ExecutionError e){
-			System.out.println(e);
-		}
+		cpu.run();
+		System.out.println("El estado de la máquina tras ejecutar el bytecodePrograma es:\n");
+		System.out.println(cpu.toString());
 	}
 	/**
 	 * Si la posicion dada es correcta, pide una instruccion para sustituir la que se encuentra en esa posicion y, si la instruccion que
@@ -137,17 +152,19 @@ public class Engine {
 	 * @param pos Un int que contiene la posicion de la instruccion que se quiere sustituir
 	 * @return Un booleano que indica si el proceso se ha llevado a cabo correctamente
 	 */
-	public boolean replaceInstruc(int pos){
-		boolean OK = false;
+	public void replaceInstruc(int pos) throws ArrayException, BadFormatByteCode{
 		if (pos < this.bytecodeProgram.size() && pos >= 0) {
 			System.out.println("Nueva instruccion: ");
 			String newInst = Engine.entrada.nextLine();
 			ByteCode nuevaInst = ByteCodeParser.parse(newInst);
 			if (nuevaInst != null) {
 				this.bytecodeProgram.emplace(nuevaInst, pos);
-				OK = true;
+			}
+			else {
+				throw new BadFormatByteCode("(El bytecode introducido no es correcto)");
 			}
 		}
-		return OK;
+		else
+			throw new ArrayException("(El bytecode elegido no existe)");
 	}
 }

@@ -14,9 +14,8 @@ public class Halt implements ByteCode {
 	 * @param cpu Una CPU cuyo programa vamos a parar
 	 * @return boolean, true siempre
 	 */
-	public boolean execute(CPU cpu){
+	public void execute(CPU cpu){
 		cpu.end();
-		return true;
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "halt" 

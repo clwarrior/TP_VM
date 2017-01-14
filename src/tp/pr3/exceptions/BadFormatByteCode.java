@@ -11,6 +11,6 @@ public class BadFormatByteCode extends Exception{
 	}
 	
 	public String toString(){
-		return "Error: BadFormatByteCode " + message;
+		return "Error: Formato del ByteCode no válido " + message;
 	}
 }

@@ -1,6 +1,7 @@
 package tp.pr3.lexicalAnalysis.term;
 
 import tp.pr3.byteCode.ByteCode;
+import tp.pr3.byteCodeGeneration.Compiler;
 import tp.pr3.byteCode.Push;
 
 public class Number implements Term{
@@ -13,15 +14,12 @@ public class Number implements Term{
 	public Number() {}
 
 	public Term parse(String term) throws NumberFormatException{
-		if(term.length()!=1) return null;
-		else{
-			try{
-				int num = Integer.parseInt(term);
-				return new Number(num);
-			}
-			catch (NumberFormatException nfe){
-				return null;
-			}
+		try{
+			int num = Integer.parseInt(term);
+			return new Number(num);
+		}
+		catch (NumberFormatException nfe){
+			return null;
 		}
 	}
 

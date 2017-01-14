@@ -1,5 +1,6 @@
 package tp.pr3.cpu;
 
+import tp.pr3.exceptions.StackException;
 
 /**
  * Clase que contiene los metodos y atributos de la pila. Se trata de un array de tamaño maximo 100
@@ -35,31 +36,34 @@ public class OperandStack {
 	 * Devuelve si esta o no la pila vacia
 	 * @return Un boolean que vale true si la pila esta vacia y false si contiene algun elemento
 	 */
-	public boolean empty(){
+	private boolean empty(){
 		return this.size == 0;
 	}
 	 /**
 	  * Extrae el ultimo elemento almacenado en la pila
 	  * @return Un int que contiene el ultimo elemento almacenado en la pila
+	 * @throws StackException 
 	  */
-	public int pop(){
-		--size;
-		return array[size];
+	public int pop() throws StackException{
+		if(this.empty())
+			throw new StackException("(Pila vacía)");
+		else {
+			--size;
+			return array[size];
+		}
 	}
 	/**
 	 * Introduce un elemento en la pila si esta no esta llena. Si lo esta, devuelve error
 	 * @param elem Un int que contiene el elemento a introducir en la pila
 	 * @return Un boolean que vale true si se ha podido introducir el elemento en la pila y false en caso contrario
 	 */
-	public boolean push(int elem){
-		boolean ok = true;
+	public void push(int elem) throws StackException{
 		if (size == TAM)
-			ok = false;
+			throw new StackException("(Pila llena)");
 		else {
 			array[size] = elem;
 			++size;
 		}
-		return ok;
 	}
 	/**
 	 * Redefine el metodo toString para la clase OperandStack para poder escribir el contenido de la pila

@@ -1,6 +1,7 @@
 package tp.pr3.byteCode;
 
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.StackException;
 /**
  * Clase hija de la clase ByteCode.
  * Esta clase da a la cpu la instruccion de añadir un entero a la pila de la cpu 
@@ -27,9 +28,10 @@ public class Push implements ByteCode{
 	 * Invoca al metodo push de la cpu dada por parametro haciendo que añada num a la stack de cpu
 	 * @param cpu Una CPU a cuya pila vamos a añadir num
 	 * @return boolean, true siempre
+	 * @throws StackException 
 	 */
-	public boolean execute(CPU cpu){
-		return cpu.push(num);
+	public void execute(CPU cpu) throws StackException{
+		cpu.push(num);
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "push" 

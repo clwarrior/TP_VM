@@ -1,5 +1,6 @@
 package tp.pr3.cpu;
 
+import tp.pr3.exceptions.ArrayException;
 
 /**
  * Clase que contiene los metodos y atributos de la memoria. Se trata de un array dinamico
@@ -35,7 +36,7 @@ public class Memory {
 	 * Por ultimo guarda en this.capacity el tamaño del nuevo array
 	 * @param tam Un int que guarda el tamaño minimo que se necesita para el array
 	 */
-	public void redimensionar(int tam){
+	private void redimensionar(int tam){
 		Integer[] nuevoArray = new Integer[tam * 2];
 		for (int i = 0; i < this.capacity; ++i)
 			nuevoArray [i] = this.array[i];
@@ -50,23 +51,33 @@ public class Memory {
 	 * @param pos Un int que indica la posicion en la que se desea almacenar el elemento
 	 * @param elem Un int que contiene el nuevo elemento a guardar en la memoria
 	 */
-	public void insert(int pos, int elem){
-		if (pos >= this.capacity)
-			this.redimensionar(pos);
-		this.array[pos] = elem;
+	public void insert(int pos, int elem) throws ArrayException{
+		if(pos >= 0) {
+			if (pos >= this.capacity)
+				this.redimensionar(pos);
+			this.array[pos] = elem;
+		}
+		else {
+			throw new ArrayException("(Posición del array no válida)");
+		}
 	}
 	/**
 	 * Devuelve el contenido de la memoria en una cierta posicion. Si en esa posicion no hay nada,
 	 * se intorduce un 0 en ella y se devuelve
 	 * @param pos Un int que contiene la posicion de la que se quiere saber el contenido
 	 * @return Un Integer con el contenido de la memoria en la posicion requerida
+	 * @throws ArrayException 
 	 */
-	public int at(int pos){
-		if (pos >= this.capacity)
-			this.redimensionar(pos);
-		if (this.array[pos] == null)
-			this.array[pos] = 0;
-		return this.array[pos];
+	public int at(int pos) throws ArrayException{
+		if (pos >= 0) {
+			if (pos >= this.capacity)
+				this.redimensionar(pos);
+			if (this.array[pos] == null)
+				this.array[pos] = 0;
+			return this.array[pos];
+		}
+		else
+			throw new ArrayException("(Posición del array no válida)");
 	}
 	/**
 	 * Redefine el metodo toString para la clase Memory para poder escribir el contenido de la memoria

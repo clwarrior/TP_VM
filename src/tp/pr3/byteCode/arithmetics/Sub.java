@@ -2,6 +2,7 @@ package tp.pr3.byteCode.arithmetics;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.StackException;
 /**
  * Clase hija de la clase Arithmetics.
  * Esta clase realiza la instruccion de restar dos numeros.
@@ -23,12 +24,11 @@ public class Sub extends Arithmetics{
 	 * @param cpu Una CPU de cuya pila vamos a extraer los operandos y donde vamos a almacenar
 	 * el resultado
 	 * @return boolean, true si ha podido realizarse la operacion y false eoc
+	 * @throws StackException 
 	 */
-	public boolean executeAux(CPU cpu, int op1, int op2){
-		boolean ok = false;
+	public void executeAux(CPU cpu, int op1, int op2) throws StackException{
 		int result = op2 - op1;
-		ok = cpu.push(result);
-		return ok;
+		cpu.push(result);
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "sub" 

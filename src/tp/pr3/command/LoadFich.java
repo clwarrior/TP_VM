@@ -1,5 +1,7 @@
 package tp.pr3.command;
 
+import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.FileException;
 import tp.pr3.mv.Engine;
 
 public class LoadFich implements Command{
@@ -11,7 +13,7 @@ public class LoadFich implements Command{
 		this.fich = fich;
 	}
 	
-	public void execute(Engine engine) {
+	public void execute(Engine engine) throws ArrayException, FileException {
 		engine.loadFich(fich);
 	}
 
@@ -25,6 +27,10 @@ public class LoadFich implements Command{
 	
 	public String textHelp() {
 		return "LOAD FICH: Carga el fichero FICH como programa fuente" + System.getProperty("line.separator");
+	}
+	
+	public String toString() {
+		return "LOAD FICH";
 	}
 	
 }

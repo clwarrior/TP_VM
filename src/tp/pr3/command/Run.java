@@ -1,5 +1,9 @@
 package tp.pr3.command;
 
+import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.DivisionByZero;
+import tp.pr3.exceptions.ExecutionError;
+import tp.pr3.exceptions.StackException;
 import tp.pr3.mv.Engine;
 /**
  * Clase hija de la clase Command.
@@ -14,8 +18,12 @@ public class Run implements Command{
 	/**
 	 * Metodo que hace que el engine dado por parametro ejecute el programa que tiene almacenado
 	 * @param engine, que queremos que ejecute su programa almacenado
+	 * @throws ExecutionError 
+	 * @throws StackException 
+	 * @throws ArrayException 
+	 * @throws DivisionByZero 
 	 */
-	public void execute(Engine engine){
+	public void execute(Engine engine) throws DivisionByZero, ArrayException, StackException, ExecutionError{
 		engine.runProgram();
 	}
 	/**

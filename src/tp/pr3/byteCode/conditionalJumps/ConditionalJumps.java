@@ -2,6 +2,9 @@ package tp.pr3.byteCode.conditionalJumps;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.ExecutionError;
+import tp.pr3.exceptions.StackException;
 /**
  * Clase hija de ByteCode.
  * Clase abstracta que agrupa las operaciones de saltos condicionales que puede realizar el programa.
@@ -33,21 +36,17 @@ abstract public class ConditionalJumps implements ByteCode{
 	 * ésta no esté vacía
 	 * @param cpu, de la cual extraemos los valores de los operandos
 	 * @return boolean, true si se han podido extraer, false eoc
+	 * @throws StackException 
+	 * @throws ExecutionError 
+	 * @throws ArrayException 
 	 */
-	public boolean execute(CPU cpu){
+	public void execute(CPU cpu) throws StackException, ExecutionError{
 		int op1 = 0, op2 = 0;
-		if(!cpu.empty()){
-			op1=cpu.pop();
-		}
-		if(!cpu.empty()){
-			op2=cpu.pop();
-			executeAux(cpu, op1, op2);
-		}
-		else
-			return false;
-		return true;
+		op1=cpu.pop();
+		op2=cpu.pop();
+		executeAux(cpu, op1, op2);
 	}
-	public abstract boolean executeAux(CPU cpu, int op1, int op2);
+	public abstract void executeAux(CPU cpu, int op1, int op2) throws ExecutionError;
 	
 	/**
 	 * Metodo que comprueba que la longitud de la instrucción es la adecuada (dos)

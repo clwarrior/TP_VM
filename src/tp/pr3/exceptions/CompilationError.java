@@ -11,7 +11,7 @@ public class CompilationError extends Exception{
 	}
 	
 	public String toString(){
-		return "Error: Error de compilación " + message;
+		return "Error de compilación  " + message;
 	}
 
 }

@@ -1,5 +1,7 @@
 package tp.pr3.command;
 
+import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.BadFormatByteCode;
 import tp.pr3.mv.Engine;
 
 /**
@@ -18,22 +20,23 @@ public class Replace implements Command{
 	/**
 	 * Constructor sin parametros
 	 */
-	public Replace(){
-		super();
-	}
+	public Replace(){}
+	
 	/**
 	 * Constructor que inicializa this.replace a replace
 	 * @param replace, int al que inicializamos this.replace
 	 */
 	public Replace(int replace){
-		this.replace= replace;
+		this.replace = replace;
 	}
 	/**
 	 * Metodo que hace que el engine dado por parametro reemplace la instruccion de la posicion 
 	 * replace del programa que tiene almacenado
 	 * @param engine, que queremos que reemplace una instruccion de su programa almacenado
+	 * @throws BadFormatByteCode 
+	 * @throws ArrayException 
 	 */
-	public void execute(Engine engine){
+	public void execute(Engine engine) throws ArrayException, BadFormatByteCode{
 		engine.replaceInstruc(replace);
 	}
 	/**
@@ -57,6 +60,6 @@ public class Replace implements Command{
 	 * Redefine el metodo toString para la clase Replace, para poder mostrar el comando por pantalla
 	 */
 	public String toString(){
-		return "REPLACE " +replace;
+		return "REPLACE " + replace;
 	}
 }

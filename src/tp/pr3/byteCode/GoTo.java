@@ -1,6 +1,7 @@
 package tp.pr3.byteCode;
 
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.ExecutionError;
 /**
  * Clase hija de ByteCode.
  * Clase que realiza saltos incondicionales en la lectura del programa.
@@ -28,9 +29,10 @@ public class GoTo implements ByteCode{
 	 * Metodo que invoca a changeCounter de cpu para que cambie el contador al valor jump.
 	 * @param cpu Una CPU cuyo contador de programa vamos a cambiar
 	 * @return  true si se ha podido hacer, false eoc
+	 * @throws ExecutionError 
 	 */
-	public boolean execute(CPU cpu){
-		return cpu.changeCounter(jump);		
+	public void execute(CPU cpu) throws ExecutionError{
+		cpu.changeCounter(jump);		
 	}
 	/**
 	 * Metodo que comprueba que la longitud del array dado coomo parametro y si se corresponde con el nombre

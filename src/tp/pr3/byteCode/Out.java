@@ -1,6 +1,7 @@
 package tp.pr3.byteCode;
 
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.StackException;
 /**
  * Clase hija de la clase ByteCode.
  * Esta clase da a la cpu la instruccion de sacar un entero de la pila y mostrarlo 
@@ -15,14 +16,10 @@ public class Out implements ByteCode{
 	 * por pantalla
 	 * @param cpu Una CPU a cuya pila vamos a quitar el ultimo elemento
 	 * @return boolean, true si la pila no esta vecia, false eoc
+	 * @throws StackException 
 	 */
-	public boolean execute(CPU cpu){
-		if(!cpu.empty()) {
-			System.out.println(cpu.pop());
-			return true;
-		}
-		else
-			return false;		
+	public void execute(CPU cpu) throws StackException{
+		System.out.println("Consola: " + cpu.pop());		
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "out" 
@@ -36,7 +33,7 @@ public class Out implements ByteCode{
 			return null;
 	}
 	/**
-	 * Redefine el metodo toString para la clase Out para poder la instruccion
+	 * Redefine el metodo toString para la clase Out para poder mostrar la instruccion
 	 */
 	public String toString(){
 		return "OUT";

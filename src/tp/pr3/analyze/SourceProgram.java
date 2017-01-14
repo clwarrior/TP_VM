@@ -16,14 +16,17 @@ public class SourceProgram {
 	
 	public void write(String inst) throws ArrayException{
 		if(last == MAX)
-			throw new ArrayException("Array lleno");
+			throw new ArrayException("(Límite de líneas sobrepasado)");
 		else{
 			sProgram[last] = inst;
 			++last;
 		}
 	}
-	public String at(int pos){
-		return sProgram[pos];
+	public String at(int pos) throws ArrayException{
+		if(pos >= 0 && pos < MAX)
+			return sProgram[pos];
+		else
+			throw new ArrayException("(Posición del array no válida)");
 	}
 	public int length(){
 		return last;

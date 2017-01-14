@@ -17,7 +17,7 @@ public class Variable implements Term{
 	public Term parse(String term){
 		if(term.length()!=1) return null;
 		else{
-			char name = term.charAt(0);
+			char name = term.toLowerCase().charAt(0);
 			if ('a' <= name && name <= 'z') 
 				return new Variable(term);
 			else 

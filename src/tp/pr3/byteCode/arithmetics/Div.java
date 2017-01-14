@@ -2,6 +2,7 @@ package tp.pr3.byteCode.arithmetics;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.*;
 /**
  * Clase hija de la clase Arithmetics.
  * Esta clase realiza la instruccion de dividir un numero entre otro.
@@ -24,14 +25,14 @@ public class Div extends Arithmetics{
 	 * el resultado
 	 * @return boolean, true si ha podido realizarse la operacion y false eoc como que la cima sea cero
 	 */
-	public boolean executeAux(CPU cpu, int op1, int op2){
+	public void executeAux(CPU cpu, int op1, int op2)throws StackException, DivisionByZero{
 		int result = 0;
-		boolean ok = false;
 		if(op1 != 0){
 			result = op2 / op1;
-			ok = cpu.push(result);
+			cpu.push(result);
 		}
-		return ok;
+		else
+			throw new DivisionByZero("");
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "div" 

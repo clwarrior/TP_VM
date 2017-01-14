@@ -1,5 +1,6 @@
 package tp.pr3.lexicalAnalysis.instructions;
 
+import tp.pr3.exceptions.ArrayException;
 import tp.pr3.exceptions.CompilationError;
 import tp.pr3.exceptions.LexicalAnalysisException;
 import tp.pr3.byteCode.memoryMove.Store;
@@ -33,7 +34,7 @@ public class SimpleAssignment implements Instruction {
 		}
 	}
 	
-	public void compile(Compiler compiler) {
+	public void compile(Compiler compiler) throws CompilationError, ArrayException {
 		this.rhs.compile(compiler);
 		int index = 0;
 		try {

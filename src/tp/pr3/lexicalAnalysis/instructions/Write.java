@@ -5,6 +5,7 @@ import tp.pr3.byteCode.Out;
 import tp.pr3.byteCode.memoryMove.Load;
 import tp.pr3.byteCodeGeneration.Compiler;
 import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.CompilationError;
 
 public class Write implements Instruction {
 	
@@ -25,7 +26,7 @@ public class Write implements Instruction {
 	}
 
 	@Override
-	public void compile(Compiler compiler) throws ArrayException{
+	public void compile(Compiler compiler) throws ArrayException, CompilationError{
 		int index = compiler.getIndex(this.varName);
 		compiler.addByteCode(new Load(index));
 		compiler.addByteCode(new Out());

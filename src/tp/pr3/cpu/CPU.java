@@ -2,7 +2,7 @@ package tp.pr3.cpu;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.byteCode.ByteCodeProgram;
-import tp.pr3.exceptions.ExecutionError;
+import tp.pr3.exceptions.*;
 
 /**
  * Clase que contiene los metodos y atributos de la CPU
@@ -51,13 +51,14 @@ public class CPU {
 	 * Ejecuta una programa de byteCodes si es posible. Si no lo es, devuelve false y no hace nada
 	 * @return Un boolean que es true si se han podido ejecutar todas las instrucciones
 	 * y false si alguna no se ha podido ejecutar
+	 * @throws ArrayException 
+	 * @throws StackException 
 	 */
-	public void run() throws ExecutionError{
+	public void run() throws ExecutionError, ArrayException, DivisionByZero, StackException{
 		while(!end && this.programCounter < bcProgram.size()){
 			ByteCode instruccion = bcProgram.at(this.programCounter);
 			++programCounter;
-			if(!instruccion.execute(this))
-				throw new ExecutionError("ByteCode: " + instruccion);
+			instruccion.execute(this);
 		}
 	}
 	/**
@@ -73,39 +74,35 @@ public class CPU {
 	public void end(){
 		this.end=true;
 	}
-	/**
-	 * Dice si la pila esta vacia o no llamando al metodo empty de la clase stack
-	 * @return Un boolean que es true si la pila esta vacia y false en otro caso
-	 */
-	public boolean empty(){
-		return this.stack.empty();
-	}
+
 	/**
 	 * Llama al metodo pop de la clase stack, que saca el ultimo elemento de la pila y lo devuelve
 	 * @return int que es el ultimo elemento de la pila que acabamos de sacar
 	 */
-	public int pop(){
+	public int pop() throws StackException{
 		return this.stack.pop();
 	}
+	
 	/**
 	 * Llama al metodo push de la clase stack  que introduce un elemento dado como parametro en la pila
 	 * @param elem, entero que queremos almacenar en la pila
 	 * @return Un boolean que es true si se ha podido introducir elem y false si la pila estaba llena
 	 */
-	public boolean push(int elem){
-		return this.stack.push(elem);
+	public void push(int elem) throws StackException{
+		this.stack.push(elem);
 	}
 	/**
 	 * Cambia this.programCounter a al valor del int jump
 	 * @param jump, valor al cual queremos poner this.programCounter
 	 * @return true si se ha podido cambiar y false si no
+	 * @throws ExecutionError 
 	 */
-	public boolean changeCounter(int jump){
+	public void changeCounter(int jump) throws ExecutionError{
 		if(jump>=0 && jump < ByteCodeProgram.getMax()){
 			this.programCounter=jump;
-			return true;
 		}
-		return false;
+		else 
+			throw new ExecutionError("(Intento de salto a posición no válida)");
 	}
 	/**
 	 * Llama al metodo at sobre this.memory para obtener el valor que toma la memoria en la posicion
@@ -113,7 +110,7 @@ public class CPU {
 	 * @param num, int que nos dice que posicion de la memoria queremos consultar
 	 * @return int que almacena la memoria en la posicion num
 	 */
-	public int load(int num){
+	public int load(int num) throws ArrayException{
 		return this.memoria.at(num);
 	}
 	/**
@@ -121,7 +118,7 @@ public class CPU {
 	 * @param num, int de la posicion en la cual queremos guardar el elemento
 	 * @param elem, int elemento a guardar en la memoria
 	 */
-	public void store(int num, int elem){
+	public void store(int num, int elem) throws ArrayException{
 		this.memoria.insert(num, elem);
 	}
 	/**

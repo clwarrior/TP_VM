@@ -3,6 +3,7 @@ package tp.pr3.lexicalAnalysis.instructions;
 import tp.pr3.analyze.ParsedProgram;
 import tp.pr3.byteCode.GoTo;
 import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.CompilationError;
 import tp.pr3.exceptions.LexicalAnalysisException;
 import tp.pr3.lexicalAnalysis.LexicalParser;
 import tp.pr3.byteCodeGeneration.Compiler;
@@ -19,7 +20,7 @@ public class While implements Instruction {
 	
 	public While() {}
 
-	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException{
+	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException, ArrayException{
 		Condition cond = ConditionParser.parse(words[1], words[2], words[3], lexParser);
 		ParsedProgram wbody = new ParsedProgram();
 		lexParser.lexicalParser(wbody, "ENDWHILE");
@@ -27,7 +28,7 @@ public class While implements Instruction {
 		return new While(cond, wbody);
 	}
 	
-	public void compile(Compiler compiler) throws ArrayException{
+	public void compile(Compiler compiler) throws ArrayException, CompilationError{
 		int inicio = compiler.getProgramCounter();
 		this.condition.compile(compiler);
 		compiler.compile(this.whileBody);

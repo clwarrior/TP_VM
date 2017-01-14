@@ -3,6 +3,7 @@ package tp.pr3.lexicalAnalysis.condition;
 import tp.pr3.lexicalAnalysis.term.Term;
 import tp.pr3.byteCode.conditionalJumps.IfEq;
 import tp.pr3.byteCodeGeneration.Compiler;
+import tp.pr3.exceptions.ArrayException;
 
 public class Equal extends Condition{
 	
@@ -23,7 +24,7 @@ public class Equal extends Condition{
 	}
 
 	@Override
-	public void compileAux(Compiler compile) {
+	public void compileAux(Compiler compile) throws ArrayException {
 		compile.addByteCode(new IfEq());
 	}
 

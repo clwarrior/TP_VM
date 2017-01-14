@@ -2,6 +2,8 @@ package tp.pr3.byteCode.memoryMove;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.StackException;
 /**
  * Clase hija de la clase MemoryMove.
  * Esta clase copia el elemento de la posicion que indique el atributo num y lo escribe al final de 
@@ -29,14 +31,12 @@ public class Load extends MemoryMove {
 	 * de la cpu y lo añade al final de la memoria
 	 * @param cpu Una CPU en cuya pila vamos a trabajar
 	 * @return boolean, true si ha podido realizarse la modificacion y false eoc
+	 * @throws ArrayException 
+	 * @throws StackException 
 	 */
-	public boolean execute(CPU cpu){
-		if (this.num>=0){
-			int valor=cpu.load(num);
-			if (cpu.push(valor))
-				return true;
-		}
-		return false;
+	public void execute(CPU cpu) throws ArrayException, StackException{
+		int valor=cpu.load(num);
+		cpu.push(valor);
 	}
 	/**
 	 * Crea un nuevo objeto de la clase siempre que el array dado por parametro sea "load" 
@@ -54,6 +54,6 @@ public class Load extends MemoryMove {
 	 * Redefine el metodo toString para la clase Load para poder la instruccion
 	 */
 	public String toString(){
-		return "LOAD "+num;
+		return "LOAD " + num;
 	}
 }

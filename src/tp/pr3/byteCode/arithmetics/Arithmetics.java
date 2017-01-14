@@ -2,6 +2,8 @@ package tp.pr3.byteCode.arithmetics;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
+import tp.pr3.exceptions.DivisionByZero;
+import tp.pr3.exceptions.StackException;
 
 /**
  * Clase hija de ByteCode
@@ -17,21 +19,16 @@ abstract public class Arithmetics implements ByteCode{
 	 * ésta no esté vacía
 	 * @param cpu, de la cual extraemos los valores de los operandos
 	 * @return boolean, true si se han podido extraer, false eoc
+	 * @throws StackException 
+	 * @throws DivisionByZero 
 	 */
-	public boolean execute(CPU cpu){
+	public void execute(CPU cpu) throws StackException, DivisionByZero{
 		int op1 = 0, op2 = 0;
-		if(!cpu.empty()){
-			op1=cpu.pop();
-		}
-		if(!cpu.empty()){
-			op2=cpu.pop();
-			executeAux(cpu, op1, op2);
-		}
-		else
-			return false;
-		return true;
+		op1=cpu.pop();
+		op2=cpu.pop();
+		executeAux(cpu, op1, op2);
 	}
-	public abstract boolean executeAux(CPU cpu, int op1, int op2);
+	public abstract void executeAux(CPU cpu, int op1, int op2) throws StackException, DivisionByZero;
 	/**
 	 * Metodo que comprueba que la longitud de la instrucción es la adecuada
 	 * @param s, Un array es el nombre de la instrucción

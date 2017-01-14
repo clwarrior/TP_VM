@@ -11,6 +11,6 @@ public class LexicalAnalysisException extends Exception{
 	}
 	
 	public String toString(){
-		return "Error: LexicalAnalysisExcepcion " + message;
+		return "Error en el análisis léxico " + message;
 	}
 }

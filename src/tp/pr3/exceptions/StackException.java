@@ -11,6 +11,6 @@ public class StackException extends Exception{
 	}
 	
 	public String toString(){
-		return "Error: StackException " + message;
+		return "Error en la pila " + message;
 	}
 }
