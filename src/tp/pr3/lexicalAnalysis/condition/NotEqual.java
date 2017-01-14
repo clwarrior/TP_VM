@@ -1,6 +1,8 @@
 package tp.pr3.lexicalAnalysis.condition;
 
 import tp.pr3.lexicalAnalysis.term.Term;
+import tp.pr3.byteCode.conditionalJumps.IfEq;
+import tp.pr3.byteCodeGeneration.Compiler;
 
 public class NotEqual extends Condition{
 	
@@ -21,8 +23,8 @@ public class NotEqual extends Condition{
 	}
 	
 	@Override
-	public void compile(Compiler compile) {
-		
+	public void compileAux(Compiler compile) {
+		compile.addByteCode(new IfEq());
 	}
 
 }

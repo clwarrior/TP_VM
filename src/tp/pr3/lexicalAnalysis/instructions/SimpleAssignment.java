@@ -1,6 +1,9 @@
 package tp.pr3.lexicalAnalysis.instructions;
 
+import tp.pr3.exceptions.CompilationError;
 import tp.pr3.exceptions.LexicalAnalysisException;
+import tp.pr3.byteCode.memoryMove.Store;
+import tp.pr3.byteCodeGeneration.Compiler;
 import tp.pr3.lexicalAnalysis.LexicalParser;
 import tp.pr3.lexicalAnalysis.term.Term;
 import tp.pr3.lexicalAnalysis.term.TermParser;
@@ -31,6 +34,16 @@ public class SimpleAssignment implements Instruction {
 	}
 	
 	public void compile(Compiler compiler) {
-		
+		this.rhs.compile(compiler);
+		int index = 0;
+		try {
+			index = compiler.getIndex(var_name);
+		}
+		catch(CompilationError e) {
+			index = compiler.addVariable(var_name);
+		}
+		finally {
+			compiler.addByteCode(new Store(index));
+		}
 	}
 }

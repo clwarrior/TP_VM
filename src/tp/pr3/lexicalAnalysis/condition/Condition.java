@@ -1,10 +1,13 @@
 package tp.pr3.lexicalAnalysis.condition;
 
+import tp.pr3.byteCode.ByteCode;
 import tp.pr3.byteCode.conditionalJumps.ConditionalJumps;
+import tp.pr3.byteCodeGeneration.Compiler;
 import tp.pr3.exceptions.LexicalAnalysisException;
 import tp.pr3.lexicalAnalysis.LexicalParser;
 import tp.pr3.lexicalAnalysis.term.Term;
 import tp.pr3.lexicalAnalysis.term.TermParser;
+import tp.pr3.byteCodeGeneration.Compiler;
 
 public abstract class Condition {
 	protected Term term1;
@@ -12,7 +15,7 @@ public abstract class Condition {
 	protected ConditionalJumps condition;
 	
 	public Condition parse(String t1, String op, String t2, LexicalParser lexParser) throws LexicalAnalysisException{
-		if (!op.equals("<") || !op.equals("<=") || !op.equals("==") || !op.equals("!="))
+		if (!op.equals("<") || !op.equals("<=") || !op.equals("=") || !op.equals("!="))
 			return null;
 		else{
 			Term term1 = TermParser.parse(t1);
@@ -28,5 +31,17 @@ public abstract class Condition {
 			
 	public abstract Condition parseAux(Term term1, Term term2, String op);
 			
-	public abstract void compile(Compiler compile);
+	public void compile(Compiler compiler) {
+		ByteCode b1 = term1.compile(compiler);
+		compiler.addByteCode(b1);
+		ByteCode b2 = term2.compile(compiler);
+		compiler.addByteCode(b2);
+		compileAux(compiler);
+	}
+	
+	public abstract void compileAux(Compiler compiler);
+
+	public void setJump(int jump) {
+		this.condition.setJump(jump);
+	}
 }

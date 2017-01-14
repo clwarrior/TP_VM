@@ -1,6 +1,7 @@
 package tp.pr3.lexicalAnalysis.term;
 
 import tp.pr3.byteCode.ByteCode;
+import tp.pr3.byteCode.Push;
 
 public class Number implements Term{
 	private int number_name;
@@ -26,8 +27,7 @@ public class Number implements Term{
 
 
 	public ByteCode compile(Compiler compiler) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Push(number_name);
 	}
 
 }

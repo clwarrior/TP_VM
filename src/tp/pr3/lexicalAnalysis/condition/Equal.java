@@ -1,6 +1,8 @@
 package tp.pr3.lexicalAnalysis.condition;
 
 import tp.pr3.lexicalAnalysis.term.Term;
+import tp.pr3.byteCode.conditionalJumps.IfEq;
+import tp.pr3.byteCodeGeneration.Compiler;
 
 public class Equal extends Condition{
 	
@@ -14,15 +16,15 @@ public class Equal extends Condition{
 
 	@Override
 	public Condition parseAux(Term term1, Term term2, String op){
-		if(op.equals("=="))
+		if(op.equals("="))
 			return new Equal(term1, term2);
 		else
 			return null;
 	}
 
 	@Override
-	public void compile(Compiler compile) {
-		
+	public void compileAux(Compiler compile) {
+		compile.addByteCode(new IfEq());
 	}
 
 }

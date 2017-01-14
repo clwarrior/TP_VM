@@ -1,5 +1,10 @@
 package tp.pr3.lexicalAnalysis.instructions;
 
+import tp.pr3.byteCode.ByteCode;
+import tp.pr3.byteCode.arithmetics.*;
+import tp.pr3.byteCode.memoryMove.Store;
+import tp.pr3.byteCodeGeneration.Compiler;
+import tp.pr3.exceptions.CompilationError;
 import tp.pr3.exceptions.LexicalAnalysisException;
 import tp.pr3.lexicalAnalysis.LexicalParser;
 import tp.pr3.lexicalAnalysis.term.Term;
@@ -23,7 +28,7 @@ public class CompoundAssignment implements Instruction {
 		char name = words[0].charAt(0);
 		if (!('a' <= name && name <= 'z') || words.length!=5 || !words[1].equals("=") ||
 				!words[3].equals("+") || !words[3].equals("-") || !words[3].equals("*") ||
-				!words[3].equals("/") || !words[3].equals("//") || !words[3].equals("%"))
+				!words[3].equals("/"))
 			return null;
 		else{
 			Term term1 = TermParser.parse(words[2]);
@@ -38,6 +43,26 @@ public class CompoundAssignment implements Instruction {
 	}
 	
 	public void compile(Compiler compiler) {
+		this.term1.compile(compiler);
+		this.term2.compile(compiler);
+		ByteCode operacion = null;
+		switch(this.operator.charAt(0)) {
+		case '+': operacion = new Add(); break;
+		case '-': operacion = new Sub(); break;
+		case '*': operacion = new Mul(); break;
+		case '/': operacion = new Div(); break;
+		}
+		compiler.addByteCode(operacion);
+		int index = 0;
+		try {
+			index = compiler.getIndex(var_name);
+		}
+		catch(CompilationError e) {
+			index = compiler.addVariable(var_name);
+		}
+		finally {
+			compiler.addByteCode(new Store(index));
+		}
 		
 	}
 }

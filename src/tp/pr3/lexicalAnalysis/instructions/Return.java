@@ -1,6 +1,8 @@
 package tp.pr3.lexicalAnalysis.instructions;
 
 import tp.pr3.lexicalAnalysis.LexicalParser;
+import tp.pr3.byteCode.Halt;
+import tp.pr3.byteCodeGeneration.Compiler;
 
 public class Return implements Instruction {
 
@@ -14,8 +16,7 @@ public class Return implements Instruction {
 
 	@Override
 	public void compile(Compiler compiler) {
-		// TODO Auto-generated method stub
-		
+		compiler.addByteCode(new Halt());
 	}
 
 }

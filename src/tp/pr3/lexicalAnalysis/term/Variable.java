@@ -1,6 +1,9 @@
 package tp.pr3.lexicalAnalysis.term;
 
 import tp.pr3.byteCode.ByteCode;
+import tp.pr3.byteCode.memoryMove.Load;
+import tp.pr3.byteCodeGeneration.Compiler;
+import tp.pr3.exceptions.CompilationError;
 
 public class Variable implements Term{
 	private String letter_name;
@@ -23,8 +26,8 @@ public class Variable implements Term{
 	}
 
 
-	public ByteCode compile(Compiler compiler) {
-		// TODO Auto-generated method stub
-		return null;
+	public ByteCode compile(Compiler compiler) throws CompilationError{
+		int index = compiler.getIndex(letter_name);
+		return new Load(index);
 	}
 }

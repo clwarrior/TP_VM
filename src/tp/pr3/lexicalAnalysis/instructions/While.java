@@ -1,9 +1,11 @@
 package tp.pr3.lexicalAnalysis.instructions;
 
 import tp.pr3.analyze.ParsedProgram;
+import tp.pr3.byteCode.GoTo;
 import tp.pr3.exceptions.ArrayException;
 import tp.pr3.exceptions.LexicalAnalysisException;
 import tp.pr3.lexicalAnalysis.LexicalParser;
+import tp.pr3.byteCodeGeneration.Compiler;
 import tp.pr3.lexicalAnalysis.condition.*;
 
 public class While implements Instruction {
@@ -26,8 +28,11 @@ public class While implements Instruction {
 	}
 	
 	public void compile(Compiler compiler) throws ArrayException{
-		// TODO Auto-generated method stub
-		
+		int inicio = compiler.getProgramCounter();
+		this.condition.compile(compiler);
+		compiler.compile(this.whileBody);
+		compiler.addByteCode(new GoTo(inicio));
+		this.condition.setJump(compiler.getProgramCounter());
 	}
 
 }

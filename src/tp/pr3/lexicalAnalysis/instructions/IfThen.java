@@ -6,6 +6,7 @@ import tp.pr3.exceptions.LexicalAnalysisException;
 import tp.pr3.lexicalAnalysis.LexicalParser;
 import tp.pr3.lexicalAnalysis.condition.Condition;
 import tp.pr3.lexicalAnalysis.condition.ConditionParser;
+import tp.pr3.byteCodeGeneration.Compiler;
 
 public class IfThen implements Instruction {
 
@@ -30,8 +31,9 @@ public class IfThen implements Instruction {
 
 	@Override
 	public void compile(Compiler compiler) throws ArrayException{
-		// TODO Auto-generated method stub
-		
+		this.condition.compile(compiler);
+		compiler.compile(this.ifBody);
+		this.condition.setJump(compiler.getProgramCounter());
 	}
 
 }

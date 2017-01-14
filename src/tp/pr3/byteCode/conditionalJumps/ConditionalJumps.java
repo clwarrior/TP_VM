@@ -68,4 +68,8 @@ abstract public class ConditionalJumps implements ByteCode{
 	 * @return ByteCode
 	 */
 	public abstract ByteCode parseAux(String[] s);
+	
+	public void setJump(int jump) {
+		this.jump = jump;
+	}
 }

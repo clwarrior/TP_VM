@@ -22,5 +22,11 @@ public class ParsedProgram {
 			++last;
 		}
 	}
+	public Instruction at(int pos){
+		return pProgram[pos];
+	}
+	public int length(){
+		return last;
+	}
 
 }
