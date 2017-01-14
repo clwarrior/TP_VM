@@ -20,14 +20,14 @@ public class LexicalParser {
 		boolean stop=false;
 		while(!stop && this.programCounter<=sProgram.length()){
 			String instr = sProgram.at(this.programCounter);
-			if (instr.equalsIgnoreCase(stopKey)){
+			if (instr.trim().equalsIgnoreCase(stopKey)){
 					stop = true;
 			}
 			else {
 				Instruction instruction = InstructionParser.parse(instr,this);
 				pProgram.write(instruction);
+				this.increaseProgramCounter();
 			}
-			this.increaseProgramCounter();
 		}
 	}
 

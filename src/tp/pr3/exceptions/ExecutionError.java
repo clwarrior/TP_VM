@@ -11,6 +11,6 @@ public class ExecutionError extends Exception{
 	}
 	
 	public String toString(){
-		return "Error de ejecución " + message;
+		return message;
 	}
 }

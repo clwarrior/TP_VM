@@ -25,7 +25,7 @@ public class CompoundAssignment implements Instruction {
 	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException {
 		char name = words[0].toLowerCase().charAt(0);
 		if (!('a' <= name && name <= 'z') || words.length!=5 || !words[1].equals("=") ||
-				!words[3].equals("+") || !words[3].equals("-") || !words[3].equals("*") || !words[3].equals("/"))
+				(!words[3].equals("+") && !words[3].equals("-") && !words[3].equals("*") && !words[3].equals("/")))
 			return null;
 		else{
 			Term term1 = TermParser.parse(words[2]);
@@ -33,15 +33,16 @@ public class CompoundAssignment implements Instruction {
 			if(term1 == null || term2 == null)
 				throw new LexicalAnalysisException("(Instrucción no válida)");
 			else{
-				lexParser.increaseProgramCounter();
 				return new CompoundAssignment(words[0], words[3], term1, term2);
 			}
 		}
 	}
 	
 	public void compile(Compiler compiler) throws CompilationError, ArrayException {
-		this.term1.compile(compiler);
-		this.term2.compile(compiler);
+		ByteCode b1 = this.term1.compile(compiler);
+		ByteCode b2 = this.term2.compile(compiler);
+		compiler.addByteCode(b1);
+		compiler.addByteCode(b2);
 		ByteCode operacion = null;
 		switch(this.operator.charAt(0)) {
 		case '+': operacion = new Add(); break;

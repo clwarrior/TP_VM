@@ -51,14 +51,24 @@ public class CPU {
 	 * Ejecuta una programa de byteCodes si es posible. Si no lo es, devuelve false y no hace nada
 	 * @return Un boolean que es true si se han podido ejecutar todas las instrucciones
 	 * y false si alguna no se ha podido ejecutar
-	 * @throws ArrayException 
-	 * @throws StackException 
+	 * @throws ExecutionError 
 	 */
-	public void run() throws ExecutionError, ArrayException, DivisionByZero, StackException{
-		while(!end && this.programCounter < bcProgram.size()){
-			ByteCode instruccion = bcProgram.at(this.programCounter);
-			++programCounter;
-			instruccion.execute(this);
+	public void run() throws ExecutionError{
+		int bytecodeEjecutado = 0;
+		ByteCode instruccion = null;
+		try {
+			while(!end && this.programCounter < bcProgram.size()){
+				bytecodeEjecutado = this.programCounter;
+				instruccion = bcProgram.at(this.programCounter);
+				++programCounter;
+				instruccion.execute(this);
+			}
+		}
+		catch (StackException | ExecutionError | ArrayException | DivisionByZero e) {
+			String mensaje = "";
+			mensaje = "Error de ejecución en el bytecode " + bytecodeEjecutado + '\n';
+			mensaje = mensaje + "Excepción en el bytecode " + instruccion + ": ";
+			throw new ExecutionError(mensaje + e);
 		}
 	}
 	/**

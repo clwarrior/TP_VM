@@ -45,7 +45,7 @@ public class Replace implements Command{
 	 * @return nuevo objeyo de clase Replace (si procede) o null
 	 */
 	public Command parse(String[] s){
-		if (s.length==2 && s[0].equalsIgnoreCase("REPLACE"))
+		if (s.length==2 && s[0].equalsIgnoreCase("REPLACEBC"))
 			return new Replace(Integer.parseInt(s[1]));
 		else
 			return null;
@@ -54,12 +54,12 @@ public class Replace implements Command{
 	 * Muestra por pantalla la ayuda asociada al comando replace
 	 */
 	public String textHelp(){
-		return "REPLACE: Reemplaza la instruccion de una posición dada " + System.getProperty("line.separator");
+		return "REPLACEBC: Reemplaza la instruccion de una posición dada " + System.getProperty("line.separator");
 	}
 	/**
 	 * Redefine el metodo toString para la clase Replace, para poder mostrar el comando por pantalla
 	 */
 	public String toString(){
-		return "REPLACE " + replace;
+		return "REPLACEBC " + replace;
 	}
 }

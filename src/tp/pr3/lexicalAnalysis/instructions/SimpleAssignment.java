@@ -3,6 +3,7 @@ package tp.pr3.lexicalAnalysis.instructions;
 import tp.pr3.exceptions.ArrayException;
 import tp.pr3.exceptions.CompilationError;
 import tp.pr3.exceptions.LexicalAnalysisException;
+import tp.pr3.byteCode.ByteCode;
 import tp.pr3.byteCode.memoryMove.Store;
 import tp.pr3.byteCodeGeneration.Compiler;
 import tp.pr3.lexicalAnalysis.LexicalParser;
@@ -28,14 +29,14 @@ public class SimpleAssignment implements Instruction {
 			if(term == null)
 				throw new LexicalAnalysisException("Instrucción no válida");
 			else{
-				lexParser.increaseProgramCounter();
 				return new SimpleAssignment(words[0], term);
 			}
 		}
 	}
 	
 	public void compile(Compiler compiler) throws CompilationError, ArrayException {
-		this.rhs.compile(compiler);
+		ByteCode b = this.rhs.compile(compiler);
+		compiler.addByteCode(b);
 		int index = 0;
 		try {
 			index = compiler.getIndex(var_name);

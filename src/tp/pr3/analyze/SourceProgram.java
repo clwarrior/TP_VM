@@ -28,7 +28,15 @@ public class SourceProgram {
 		else
 			throw new ArrayException("(Posición del array no válida)");
 	}
+	
 	public int length(){
 		return last;
+	}
+	
+	public String toString() {
+		String show = "";
+		for(int i = 0; i < last; ++i)
+			show = show + i + ": " + sProgram[i] + '\n';
+		return show;
 	}
 }

@@ -42,7 +42,7 @@ public class Compiler {
 		if(!encontrado) {
 			throw new CompilationError("(La variable no existe)");
 		}
-		return i;
+		return i - 1;
 	}
 	
 	public int addVariable(String varName) {

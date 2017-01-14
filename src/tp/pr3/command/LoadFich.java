@@ -30,7 +30,7 @@ public class LoadFich implements Command{
 	}
 	
 	public String toString() {
-		return "LOAD FICH";
+		return "LOAD " + fich;
 	}
 	
 }

@@ -1,10 +1,16 @@
 package tp.pr3.exceptions;
 
-public class DivisionByZero extends ExecutionError{
+public class DivisionByZero extends Exception{
 
 	private static final long serialVersionUID = 1L;
 
+	private String message;
+	
 	public DivisionByZero(String string) {
-		super(" - División entre 0 " + string);
+		this.message = string;
+	}
+	
+	public String toString() {
+		return "División entre 0" + this.message;
 	}
 }

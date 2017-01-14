@@ -16,7 +16,7 @@ public abstract class Condition {
 	protected ConditionalJumps condition;
 	
 	public Condition parse(String t1, String op, String t2, LexicalParser lexParser) throws LexicalAnalysisException{
-		if (!op.equals("<") || !op.equals("<=") || !op.equals("=") || !op.equals("!="))
+		if (!op.equals("<") && !op.equals("<=") && !op.equals("=") && !op.equals("!="))
 			return null;
 		else{
 			Term term1 = TermParser.parse(t1);
@@ -24,7 +24,6 @@ public abstract class Condition {
 			if(term1 == null || term2 == null)
 				throw new LexicalAnalysisException("(Instrucción no válida)");
 			else{
-				lexParser.increaseProgramCounter();
 				return parseAux(term1, term2, op);
 			}
 		}
@@ -37,10 +36,8 @@ public abstract class Condition {
 		compiler.addByteCode(b1);
 		ByteCode b2 = term2.compile(compiler);
 		compiler.addByteCode(b2);
-		compileAux(compiler);
+		compiler.addByteCode(condition);
 	}
-	
-	public abstract void compileAux(Compiler compiler) throws ArrayException;
 
 	public void setJump(int jump) {
 		this.condition.setJump(jump);

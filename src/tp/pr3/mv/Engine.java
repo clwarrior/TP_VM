@@ -8,8 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import tp.pr3.byteCodeGeneration.Compiler;
-import tp.pr3.analyze.ParsedProgram;
-import tp.pr3.analyze.SourceProgram;
+import tp.pr3.analyze.*;
 import tp.pr3.byteCode.*;
 import tp.pr3.command.*;
 import tp.pr3.cpu.CPU;
@@ -46,6 +45,8 @@ public class Engine {
 	 */
 	public Engine(){
 		this.bytecodeProgram = new ByteCodeProgram();
+		this.sProgram = new SourceProgram();
+		this.pProgram = new ParsedProgram();
 		this.end = false;
 	}
 
@@ -71,14 +72,8 @@ public class Engine {
 							System.out.println("\nPrograma bytecode almacenado:\n\n" + bytecodeProgram);
 					}
 				}
-				catch(ArrayException | LexicalAnalysisException | FileException | BadFormatByteCode 
-						| StackException | ExecutionError | CompilationError e){
+				catch(ExecutionError | LexicalAnalysisException | ArrayException | FileException | BadFormatByteCode | DivisionByZero | StackException | CompilationError e){
 					System.out.println(e);
-				}
-				if (comando1.getClass() != Help.class) {
-					System.out.println("\nPrograma fuente almacenado:\n\n" + sProgram);
-					if(bytecodeProgram.size() != 0)
-						System.out.println("\nPrograma bytecode almacenado:\n\n" + bytecodeProgram);
 				}
 			}
 		} while(!this.end);
@@ -102,6 +97,9 @@ public class Engine {
 	}
 	
 	public void loadFich(String fich) throws ArrayException, FileException{
+		sProgram = new SourceProgram();
+		pProgram = new ParsedProgram();
+		bytecodeProgram = new ByteCodeProgram();
 		BufferedReader flujoEnt = null;
 		try {
 			flujoEnt = new BufferedReader(new FileReader(fich));
@@ -109,10 +107,13 @@ public class Engine {
 		catch (FileNotFoundException e) {
 			throw new FileException("(Fichero no encontrado)");
 		}
-		String line;
 		try {
-			while((line = flujoEnt.readLine()) != null)
+			String line = flujoEnt.readLine();
+			while(!line.equalsIgnoreCase("END")) {
 				sProgram.write(line);
+				line = flujoEnt.readLine();
+			}
+			sProgram.write(line);
 			flujoEnt.close();
 		}
 		catch (IOException e) {
@@ -140,7 +141,7 @@ public class Engine {
 	 * bytecodeProgram.end es true o hasta que se terminan las instrucciones, y va escribiendo el mensaje correspondiente con la ejecucion de cada instruccion
 	 *@return OK Un boolean que es true si todo se ha realizado correctamente y false eoc
 	 */
-	public void runProgram() throws ArrayException, StackException, DivisionByZero, ExecutionError{
+	public void runProgram() throws ExecutionError{
 		CPU cpu = new CPU(this.bytecodeProgram);
 		cpu.run();
 		System.out.println("El estado de la máquina tras ejecutar el bytecodePrograma es:\n");
