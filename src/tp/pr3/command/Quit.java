@@ -13,7 +13,6 @@ public class Quit implements Command{
 	/**
 	 * Llama al metodo quitProgram de la clase Engine sobre engine, dado por parametro indicando 
 	 * que acaba el programa de byteCodes
-	 * @return true
 	 */
 	public void execute(Engine engine){
 		engine.quitProgram();

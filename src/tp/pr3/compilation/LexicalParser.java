@@ -43,7 +43,7 @@ public class LexicalParser {
 	 */
 	public void lexicalParser(ParsedProgram pProgram, String stopKey) throws ArrayException, LexicalAnalysisException {
 		boolean stop=false;
-		while(!stop && this.programCounter<=sProgram.length()){
+		while(!stop){
 			String instr = sProgram.at(this.programCounter);
 			if(instr == null) {
 				throw new LexicalAnalysisException("(No se ha detectado fin del programa)");
