@@ -45,7 +45,7 @@ public class ByteCodeProgram {
 	 * @throws ArrayException 
 	 */
 	public ByteCode at(int pos) throws ArrayException{
-		if (pos >= 0 && pos < MAX)
+		if (pos >= 0 && pos < last)
 			return this.program[pos];
 		else
 			throw new ArrayException("(Posición del array no válida)");
@@ -61,7 +61,7 @@ public class ByteCodeProgram {
 			++this.last;
 		}
 		else
-			throw new ArrayException("(Array lleno)");
+			throw new ArrayException("(Límite de bytecodes sobrepasado)");
 	}
 	/**
 	 * Sustituye la instruccion del programa ubicada en una posicion concreta por una dada

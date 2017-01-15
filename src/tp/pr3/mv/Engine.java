@@ -109,18 +109,11 @@ public class Engine {
 		}
 		try {
 			String line = flujoEnt.readLine();
-			while(line != null && !line.equalsIgnoreCase("END")) {
+			while(line != null) {
 				sProgram.write(line);
 				line = flujoEnt.readLine();
 			}
-			if(line == null) {
-				flujoEnt.close();
-				throw new FileException("(Falta instrucción de fin de programa)");
-			}
-			else {
-				sProgram.write(line);
-				flujoEnt.close();
-			}
+			flujoEnt.close();
 		}
 		catch (IOException e) {
 			throw new FileException("(Error de lectura)");

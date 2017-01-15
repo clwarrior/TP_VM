@@ -12,7 +12,7 @@ public class InstructionParser {
 	
 	public static Instruction parse(String inst, LexicalParser lexParser) throws LexicalAnalysisException, ArrayException{
 		Instruction instruction = null;
-		String subcads[] = inst.trim().split(" ");//--------------------------------------------------------------------quita tabulador
+		String subcads[] = inst.trim().split(" ");
 		int i=0;
 		while(instruction == null && i<instructions.length){
 			instruction = instructions[i].lexParse(subcads, lexParser);

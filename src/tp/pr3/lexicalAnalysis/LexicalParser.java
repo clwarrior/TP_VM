@@ -20,13 +20,21 @@ public class LexicalParser {
 		boolean stop=false;
 		while(!stop && this.programCounter<=sProgram.length()){
 			String instr = sProgram.at(this.programCounter);
-			if (instr.trim().equalsIgnoreCase(stopKey)){
-					stop = true;
+			if(instr == null) {
+				throw new LexicalAnalysisException("(No se ha detectado fin del programa)");
+			}
+			else if (instr.trim().equalsIgnoreCase(stopKey)){
+				stop = true;
 			}
 			else {
 				Instruction instruction = InstructionParser.parse(instr,this);
-				pProgram.write(instruction);
-				this.increaseProgramCounter();
+				if(instruction == null) {
+					throw new LexicalAnalysisException("(La instrucción " + this.programCounter + " no es válida)");
+				}
+				else {
+					pProgram.write(instruction);
+					this.increaseProgramCounter();
+				}
 			}
 		}
 	}

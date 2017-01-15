@@ -108,7 +108,7 @@ public class CPU {
 	 * @throws ExecutionError 
 	 */
 	public void changeCounter(int jump) throws ExecutionError{
-		if(jump>=0 && jump < ByteCodeProgram.getMax()){
+		if(jump>=0 && jump < bcProgram.size()){
 			this.programCounter=jump;
 		}
 		else 
