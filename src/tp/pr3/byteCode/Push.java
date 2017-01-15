@@ -39,8 +39,14 @@ public class Push implements ByteCode{
 	 * @return nuevo objeto de clase Push (si procede) o null
 	 */
 	public ByteCode parse(String[] s){
-		if (s.length==2 && s[0].equalsIgnoreCase("PUSH"))
-			return new Push(Integer.parseInt(s[1]));
+		if (s.length==2 && s[0].equalsIgnoreCase("PUSH")) {
+			try {
+				return new Push(Integer.parseInt(s[1]));
+			}
+			catch(NumberFormatException e) {
+				return null;
+			}
+		}
 		else
 			return null;
 	}

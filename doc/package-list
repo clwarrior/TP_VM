@@ -1,0 +1,15 @@
+tp.pr3.byteCode
+tp.pr3.byteCode.arithmetics
+tp.pr3.byteCode.conditionalJumps
+tp.pr3.byteCode.memoryMove
+tp.pr3.command
+tp.pr3.compilation
+tp.pr3.compilation.conditions
+tp.pr3.compilation.instructions
+tp.pr3.compilation.instructions.assignments
+tp.pr3.compilation.instructions.jumps
+tp.pr3.compilation.terms
+tp.pr3.cpu
+tp.pr3.exceptions
+tp.pr3.mv
+tp.pr3.programs

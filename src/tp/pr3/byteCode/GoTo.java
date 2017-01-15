@@ -2,53 +2,62 @@ package tp.pr3.byteCode;
 
 import tp.pr3.cpu.CPU;
 import tp.pr3.exceptions.ExecutionError;
+
 /**
  * Clase hija de ByteCode.
- * Clase que realiza saltos incondicionales en la lectura del programa.
+ * Realiza saltos incondicionales en la lectura del programa.
  * Tiene un int jump que indica la posicion del programa a la que queremos saltar.
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class GoTo implements ByteCode{
+	
 	/** 
-	 * Posicion a la que se movera el contador del programa tras ejecutar esta instruccion
+	 * Posicion a la que se movera el contador del programa tras ejecutar esta instruccion.
 	 */
 	private int jump;
+	
 	/**
-	 * Constructor que inicializa this.jump a jump
-	 * @param jump, Un int al cual inicializar el atributo de la clase
+	 * Constructor dado el salto
+	 * @param jump Int al que se inicializa this.jump
 	 */
 	public GoTo(int jump){
 		this.jump = jump;
 	}
+	
 	/**
-	 * Constructor sin parametros
+	 * Constructor sin parámetros
 	 */
 	public GoTo() {}
+	
 	/**
-	 * Metodo que invoca a changeCounter de cpu para que cambie el contador al valor jump.
-	 * @param cpu Una CPU cuyo contador de programa vamos a cambiar
-	 * @return  true si se ha podido hacer, false eoc
-	 * @throws ExecutionError 
+	 * {@inheritDoc}
+	 * Modifica el contador del programa por this.jump
 	 */
 	public void execute(CPU cpu) throws ExecutionError{
 		cpu.changeCounter(jump);		
 	}
+	
 	/**
-	 * Metodo que comprueba que la longitud del array dado coomo parametro y si se corresponde con el nombre
-	 * de la clase y tiene la longitud adecuada construye un nuevo elemento de la clase y lo devuelve, si no
-	 * devuelve null.
-	 * @param s Un array de String que debe contener el nombre de alguna instruccion de la clase ByteCode
-	 * @return Un nuevo elemento de la clase GoTo si el array de entrada es correcto, si no devuelve null.
+	 * Comprueba si s corresponde a un ByteCode GoTo. Para ello su longitud debe ser 2, s[0] debe ser
+	 * "GOTO" y s[1] un número mayor o igual que 0.
+	 * @param s Array de String que contiene la instrucción
+	 * @return ByteCode GoTo, si se corresponde, null, si no
 	 */
 	public ByteCode parse(String[] s){
-		if (s.length==2 && s[0].equalsIgnoreCase("GOTO"))
-			return new GoTo(Integer.parseInt(s[1]));
-		else
+		try {
+			if (s.length==2 && s[0].equalsIgnoreCase("GOTO") && Integer.parseInt(s[1]) >= 0)
+				return new GoTo(Integer.parseInt(s[1]));
+			else
+				return null;
+		}
+		catch(NumberFormatException e) {
 			return null;
+		}
 	}
+	
 	/**
-	 * Redefine el metodo toString para la clase GoTo, para poder mostrar la instruccion por pantalla
+	 * Redefine el metodo toString para la clase GoTo
 	 */
 	public String toString(){
 		return "GOTO "+jump;

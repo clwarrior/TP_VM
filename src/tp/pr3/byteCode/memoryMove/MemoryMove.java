@@ -3,33 +3,35 @@ package tp.pr3.byteCode.memoryMove;
 import tp.pr3.byteCode.ByteCode;
 
 /**
- * Clase abstracta que engloba los metodos que mueven elementos de la memoria
+ * Clase hija de ByteCode.
+ * Clase abstracta que engloba los metodos que interactúan con la memoria.
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public abstract class MemoryMove implements ByteCode{
 
 	/**
-	 * Un int num que indica una posicion de la memoria
+	 * Int que indica la posición de memoria a la que se va a acceder
 	 */
 	protected int num;
+	
 	/**
-	 * Constructor con parametros. Inicializa this.num a num.
-	 * @param num Un int dado como parametro.
+	 * Constructor dada la posición de memoria.
+	 * @param num Int al que queremos inicializar this.num
 	 */
 	public MemoryMove(int num){
 		this.num=num;
 	}
+	
 	/**
-	 * Constructor de MemoryMove sin parametros.
+	 * Constructor sin parámetros.
 	 */
 	public MemoryMove(){}
 	
 	/**
-	 * Comprueba que la longitud del array es dos y llama al metodo abstracto parseAux 
-	 * pasandole el array como parametro
-	 * @param s Un array de String que debe tener el numbre de una instruccion
-	 * @return Un ByteCode devuelto por parseAux o null
+	 * Comprueba que la longitud de la instrucción es la adecuada
+	 * @param s Array de String que contiene la instrucción
+	 * @return ByteCode de la instrucción a realizar, o null si no coincide con ninguna
 	 */
 	public ByteCode parse(String[] s){
 		if(s.length == 2)
@@ -37,12 +39,12 @@ public abstract class MemoryMove implements ByteCode{
 		else
 			return null;
 	}
+	
 	/**
-	 * Metodo abstracto que comprobara que el array s dado por parametro es el nombre de la
-	 * instruccion correspondiente a la clase y crea y devuelve un ByteCode de esa clase o null
-	 * si s no es correcto
-	 * @param s Un array de Strings
-	 * @return Un ByteCode si s es correcto, null eoc
+	 * Método abstracto que devuelve un ByteCode de la instrucción correspondiente al String dado, 
+	 * o null si no corresponde a ninguna.
+	 * @param s Array de String que contiene la instrucción
+	 * @return ByteCode de la instrucción correspondiente, o null si no coincide con ninguna
 	 */
 	public abstract ByteCode parseAux(String[] s);
 }

@@ -1,52 +1,46 @@
 package tp.pr3.command;
-import tp.pr3.exceptions.ArrayException;
-import tp.pr3.exceptions.BadFormatByteCode;
-import tp.pr3.exceptions.CompilationError;
-import tp.pr3.exceptions.DivisionByZero;
-import tp.pr3.exceptions.ExecutionError;
-import tp.pr3.exceptions.FileException;
-import tp.pr3.exceptions.LexicalAnalysisException;
-import tp.pr3.exceptions.StackException;
+
+import tp.pr3.exceptions.*;
 import tp.pr3.mv.Engine;
 
 /**
- * Clase abstracta que contiene las operaciones necesarias a realizar sobre los comandos.
- * No tiene atributos.
+ * Interfaz que engloba todos los comandos.
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public interface Command {
 
 	/**
-	 * Metodo abstacto con el cual cada comando se ejecutara
-	 * @param engine Un Engine sobre el cual ejecutaremos los comandos
-	 * @return boolean
-	 * @throws ArrayException 
-	 * @throws LexicalAnalysisException 
-	 * @throws FileException 
-	 * @throws BadFormatByteCode 
-	 * @throws ExecutionError 
-	 * @throws StackException 
-	 * @throws DivisionByZero 
-	 * @throws CompilationError 
+	 * Método que ejecuta el comando.
+	 * @param engine Engine sobre el que se ejecutan los comandos
+	 * @throws ArrayException Intento de acceso a posición no válida, Array lleno
+	 * @throws LexicalAnalysisException Instrucción incorrecta introducida, Falta fin del programa
+	 * @throws FileException No se encuentra el fichero, Error de lectura
+	 * @throws BadFormatByteCode ByteCode incorrecto introducido
+	 * @throws ExecutionError Intento de salto a posición no válida
+	 * @throws StackException Pila llena, pila vacía
+	 * @throws DivisionByZero División entre 0
+	 * @throws CompilationError Error al compilar el programa
 	 */
 	abstract public void execute(Engine engine) throws LexicalAnalysisException, ArrayException, FileException, 
-													   BadFormatByteCode, DivisionByZero, StackException, ExecutionError, CompilationError;
+													   BadFormatByteCode, DivisionByZero, StackException, 
+													   ExecutionError, CompilationError;
+	
 	/**
-	 * Metodo abstacto con el cual cada comando se creara si el string dado corresponde con 
-	 * el nombre del comando
-	 * @param String[] s Un array que contiene el nombre de un comando 
-	 * @return Command de la clase correspondiente si ha sido creado, null si no
+	 * Método que crea el comando correspondiente a s, si existe.
+	 * @param s Array de String que contiene el comando 
+	 * @return Command correspondiente, si lo hay, o null en caso contrario
 	 */
 	abstract public Command parse(String[] s);
+	
 	/**
-	 * Metodo abstacto con el cual cada comando mostrará su ayuda asociada
-	 * @return String, ayuda asociada
+	 * Método que muestra la ayuda asociada a un comando.
+	 * @return String que contiene el texto de ayuda del comando
 	 */
 	abstract public String textHelp();
 
 	/**
-	 * Redefine el metodo toString para la clase Command para poder escribir comandos
+	 * Redefine el metodo toString para la clase Command.
 	 */
 	abstract public String toString();
 	

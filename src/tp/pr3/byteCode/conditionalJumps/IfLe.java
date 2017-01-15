@@ -45,10 +45,15 @@ public class IfLe extends ConditionalJumps{
 	 * @return nuevo objeto de clase IfLe (si procede) o null
 	 */
 	public ByteCode parseAux(String[] s){
-		if (s[0].equalsIgnoreCase("IFLE"))
-			return new IfLe(Integer.parseInt(s[1]));
-		else
+		try {
+			if (s[0].equalsIgnoreCase("IFLE") && Integer.parseInt(s[1]) >= 0)
+				return new IfEq(Integer.parseInt(s[1]));
+			else
+				return null;
+		}
+		catch(NumberFormatException e) {
 			return null;
+		}
 	}
 	/**
 	 * Redefine el metodo toString para la clase IfLe, para poder mostrar la instrucción por pantalla

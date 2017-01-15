@@ -2,56 +2,62 @@ package tp.pr3.byteCode.memoryMove;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
-import tp.pr3.exceptions.ArrayException;
-import tp.pr3.exceptions.StackException;
+import tp.pr3.exceptions.*;
+
 /**
- * Clase hija de la clase MemoryMove.
- * Esta clase copia el elemento de la posicion que indique el atributo num y lo escribe al final de 
- * la memoria
+ * Clase hija de la MemoryMove (hija de ByteCode).
+ * Introduce el elemento de la posición de memoria num en la pila
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class Load extends MemoryMove {
+	
 	/**
-	 * Constructor con un parametro que hereda del constructor de la clase padre
-	 * (inicializa this.num a num)
-	 * @param num, Un int al que inicializar this.num
+	 * Constructor dada la posición de memoria.
+	 * @param num Int al que se quiere inicializar this.num
 	 */
 	public Load(int num){
 		super(num);
 	}
+	
 	/**
-	 * Constructor sin parametros que hereda del constructor de la clase padre
+	 * Constructor sin parámetros.
 	 */
 	public Load() {
 		super();
 	}
+	
 	/**
-	 * Comprueba que la posicion dada en this.num sea valida, entonces carga el valor de esa posicion 
-	 * de la cpu y lo añade al final de la memoria
-	 * @param cpu Una CPU en cuya pila vamos a trabajar
-	 * @return boolean, true si ha podido realizarse la modificacion y false eoc
-	 * @throws ArrayException 
-	 * @throws StackException 
+	 * {@inheritDoc}
+	 * Introduce en la pila el elemento que se encuentra en la posición de memoria this.num.
+	 * @throws ArrayException Intento de acceso a posición no válida de la memoria
+	 * @throws StackException Pila llena
 	 */
 	public void execute(CPU cpu) throws ArrayException, StackException{
 		int valor=cpu.load(num);
 		cpu.push(valor);
 	}
+	
 	/**
-	 * Crea un nuevo objeto de la clase siempre que el array dado por parametro sea "load" 
-	 * (independiemtemente de mayusculas o minusculas) seguido de un numero mayor que cero,
-	 *  si no devuelve null
-	 * @return nuevo objeto de clase Load (si procede) o null
+	 * {@inheritDoc}
+	 * s[0] debe ser "LOAD" y s[1] debe ser un número mayor o igual que 0
+	 * @return ByteCode Load, si corresponde, o null, si no
 	 */
 	public ByteCode parseAux(String[] s){
-		if (s[0].equalsIgnoreCase("LOAD") && Integer.parseInt(s[1]) >= 0)
-			return new Load(Integer.parseInt(s[1]));
+		if (s[0].equalsIgnoreCase("LOAD") && Integer.parseInt(s[1]) >= 0) {
+			try {
+				return new Load(Integer.parseInt(s[1]));
+			}
+			catch(NumberFormatException e) {
+				return null;
+			}
+		}
 		else
 			return null;
 	}
+	
 	/**
-	 * Redefine el metodo toString para la clase Load para poder la instruccion
+	 * Redefine el metodo toString para la clase Load
 	 */
 	public String toString(){
 		return "LOAD " + num;

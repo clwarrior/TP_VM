@@ -46,10 +46,15 @@ public class IfNeq extends ConditionalJumps{
 	 * @return nuevo objeto de clase IfNeq (si procede) o null
 	 */
 	public ByteCode parseAux(String[] s){
-		if (s[0].equalsIgnoreCase("IFNEQ"))
-			return new IfNeq(Integer.parseInt(s[1]));
-		else
+		try {
+			if (s[0].equalsIgnoreCase("IFNEQ") && Integer.parseInt(s[1]) >= 0)
+				return new IfEq(Integer.parseInt(s[1]));
+			else
+				return null;
+		}
+		catch(NumberFormatException e) {
 			return null;
+		}
 	}
 	/**
 	 * Redefine el metodo toString para la clase IfNeq, para poder mostrar la instrucción por pantalla

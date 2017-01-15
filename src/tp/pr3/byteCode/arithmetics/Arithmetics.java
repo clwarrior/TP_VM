@@ -2,25 +2,21 @@ package tp.pr3.byteCode.arithmetics;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
-import tp.pr3.exceptions.DivisionByZero;
-import tp.pr3.exceptions.StackException;
+import tp.pr3.exceptions.*;
 
 /**
- * Clase hija de ByteCode
+ * Clase hija de ByteCode.
  * Clase abstracta que agrupa las operaciones aritméticas que pude realizar el programa.
- * Tiene dos int que actuan como operandos.
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 abstract public class Arithmetics implements ByteCode{
 	
 	/**
-	 * Metodo que dada una cpu, extrae los los operandos de la pila de la cpu siempre que 
-	 * ésta no esté vacía
-	 * @param cpu, de la cual extraemos los valores de los operandos
-	 * @return boolean, true si se han podido extraer, false eoc
-	 * @throws StackException 
-	 * @throws DivisionByZero 
+	 * Método que extrae los dos operandos de la CPU para realizar la operación.
+	 * @param cpu CPU
+	 * @throws StackException Pila vacía, Pila llena
+	 * @throws DivisionByZero División entre 0
 	 */
 	public void execute(CPU cpu) throws StackException, DivisionByZero{
 		int op1 = 0, op2 = 0;
@@ -28,11 +24,21 @@ abstract public class Arithmetics implements ByteCode{
 		op2=cpu.pop();
 		executeAux(cpu, op1, op2);
 	}
+	
+	 /**
+	  * Método abstracto que ejecuta la operación concreta con los dos operandos dados y guarda el resultado en la pila.
+	  * @param cpu CPU
+	  * @param op1 Operando 1 para la operación
+	  * @param op2 Operando 2 para la operación
+	  * @throws StackException Pila llena
+	  * @throws DivisionByZero División entre 0
+	  */
 	public abstract void executeAux(CPU cpu, int op1, int op2) throws StackException, DivisionByZero;
+	
 	/**
-	 * Metodo que comprueba que la longitud de la instrucción es la adecuada
-	 * @param s, Un array es el nombre de la instrucción
-	 * @return String, es el nombre de la operación a realizar, o null si la longitud del array de entrada no es uno
+	 * Método que comprueba que la longitud de la instrucción es la adecuada (1).
+	 * @param s Arraytrings que contiene la instrucción a parsear
+	 * @return ByteCode de la operación a realizar, o null si no coincide con ninguna
 	 */
 	public ByteCode parse(String[] s){
 		if(s.length == 1)
@@ -40,11 +46,12 @@ abstract public class Arithmetics implements ByteCode{
 		else
 			return null;
 	}
+	
 	/**
-	 * Metodo abstracto que crea un nuevo objeto de la clase siempre que el el string dado por parametro 
-	 * sea el nombre de la instruccion (independiemtemente de mayusculas o minusculas), si no devuelve null
-	 * @param s Un array que vamos a interpretar
-	 * @return ByteCode
+	 * Método abstracto que devuelve un ByteCode de la operación correspondiente al String dado, 
+	 * o null si no corresponde a ninguna.
+	 * @param s El String que vamos a interpretar
+	 * @return El ByteCode correspondiente, o null si no coincide con ninguno
 	 */
 	public abstract ByteCode parseAux(String s);
 }

@@ -1,36 +1,34 @@
 package tp.pr3.byteCode;
+
 import tp.pr3.cpu.CPU;
-import tp.pr3.exceptions.ArrayException;
-import tp.pr3.exceptions.DivisionByZero;
-import tp.pr3.exceptions.ExecutionError;
-import tp.pr3.exceptions.StackException;
+import tp.pr3.exceptions.*;
 
 /**
- * Clase abstracta que engloba todas las instrucciones ByteCode
+ * Interfaz que engloba todas las instrucciones ByteCode.
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public interface ByteCode {
 
 	/**
-	 * Ejecutará la instrucción correspondiente sobre la cpu dada como parametro
-	 * @param cpu, Una CPU sobre la cual ejecutaremos las instrucciones ByteCode
-	 * @return boolean, true si la ejecución fue correcta, false eoc
-	 * @throws StackException 
-	 * @throws DivisionByZero 
-	 * @throws ExecutionError 
-	 * @throws ArrayException 
+	 * Ejecuta la instrucción correspondiente sobre la CPU dada como parametro.
+	 * @param cpu CPU
+	 * @throws StackException Pila llena, Pila vacía
+	 * @throws DivisionByZero División entre 0
+	 * @throws ExecutionError Intento de salto a posición no válida
+	 * @throws ArrayException Intento de acceso a posición no válida de la memoria
 	 */
 	abstract public void execute(CPU cpu) throws StackException, DivisionByZero, ExecutionError, ArrayException;
+	
 	/**
-	 * Comprueba si el array de cadenas dado como parametro corresponde con el nombre de la clase 
-	 * y si es asi devolvera un objeto de la clase, si no null
-	 * @param s, array de String que contiene el nombre de una instruccion
-	 * @return Un objeto de la clase si es la correcta, null eoc
+	 * Comprueba si el Array de String dado coincide con algún ByteCode.
+	 * @param s Array de String que contiene la instrucción
+	 * @return ByteCode de la instrucción a realizar, o null si no coincide con ninguna
 	 */
 	abstract public ByteCode parse(String[] s);
+	
 	/**
-	 * Redefinira el metodo toString para cada clase hija
+	 * Redefine el método toString para la clase correspondiente.
 	 */
 	abstract public String toString();
 	
