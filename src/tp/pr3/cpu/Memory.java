@@ -5,7 +5,7 @@ import tp.pr3.exceptions.ArrayException;
 /**
  * Clase que contiene los metodos y atributos de la memoria. Se trata de un array dinamico
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class Memory {
 	
@@ -50,6 +50,7 @@ public class Memory {
 	 * Si la posicion es mayor que el tamaño del array, lo redimensiona
 	 * @param pos Un int que indica la posicion en la que se desea almacenar el elemento
 	 * @param elem Un int que contiene el nuevo elemento a guardar en la memoria
+	 * @throws ArrayException Posición del Array no válida
 	 */
 	public void insert(int pos, int elem) throws ArrayException{
 		if(pos >= 0) {
@@ -66,7 +67,7 @@ public class Memory {
 	 * se intorduce un 0 en ella y se devuelve
 	 * @param pos Un int que contiene la posicion de la que se quiere saber el contenido
 	 * @return Un Integer con el contenido de la memoria en la posicion requerida
-	 * @throws ArrayException 
+	 * @throws ArrayException Posición del Array no válida
 	 */
 	public int at(int pos) throws ArrayException{
 		if (pos >= 0) {

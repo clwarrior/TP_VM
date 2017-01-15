@@ -5,14 +5,13 @@ import tp.pr3.cpu.CPU;
  * Clase hija de la clase ByteCode.
  * Esta clase da a la cpu la instruccion de parar el programa de ByteCodes
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class Halt implements ByteCode {
 
 	/**
-	 * Invoca al metodo trueEnd de la cpu dada por parametro haciendo que acabe el programa
+	 * Invoca al metodo end de la cpu dada por parametro haciendo que acabe el programa
 	 * @param cpu Una CPU cuyo programa vamos a parar
-	 * @return boolean, true siempre
 	 */
 	public void execute(CPU cpu){
 		cpu.end();

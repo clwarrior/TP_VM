@@ -9,7 +9,7 @@ import tp.pr3.exceptions.ExecutionError;
  * Esta clase realiza saltos en la lectura de las instrucciones del programa siempre que
  * la condicion (subcima menor o igual que cima) de la pila no se cumpla.
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 
 public class IfLeq extends ConditionalJumps{
@@ -29,21 +29,18 @@ public class IfLeq extends ConditionalJumps{
 		super();
 	}
 	/**
-	 * Llamando al execute de la clase padre saca la cima y la subcima de la pila de la cpu 
-	 * dada por parámetro y si ha sido posible se compara la subcima y la cima, y si la
-	 * subcima no es menor o igual que la cima se invoca a changeCounter de cpu para que cambie 
-	 * el contador al valor jump.
-	 * @param cpu Una CPU de cuya pila vamos a extraer los operandos
-	 * @return boolean, true si ha podido realizarse la modificacion del contador y false eoc
+	 * {@inheritDoc}
+	 * La condición evaluada es "op1 <= op2".
+	 * @throws ExecutionError Lanza un error de ejecución cuando se intenta saltar a una posición no válida
 	 */
 	public void executeAux(CPU cpu, int op1, int op2) throws ExecutionError{
 		if(op2>op1)
 			cpu.changeCounter(jump);
 	}
 	/**
-	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "ifleq" 
-	 * (independiemtemente de mayusculas o minusculas), si no devuelve null
-	 * @return nuevo objeto de clase IfLeq (si procede) o null
+	 * {@inheritDoc}
+	 * s[0] debe ser "IFLEQ" y s[1] debe ser un número.
+	 * @return ByteCode IfLeq, si corresponde, o null, si no
 	 */
 	public ByteCode parseAux(String[] s){
 		try {

@@ -6,7 +6,7 @@ import tp.pr3.exceptions.StackException;
  * Clase hija de la clase ByteCode.
  * Esta clase da a la cpu la instruccion de sacar un entero de la pila y mostrarlo 
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class Out implements ByteCode{
 
@@ -15,8 +15,7 @@ public class Out implements ByteCode{
 	 * por parametro haciendo que quite el ultimo elemento de la stack de cpu y lo muestre
 	 * por pantalla
 	 * @param cpu Una CPU a cuya pila vamos a quitar el ultimo elemento
-	 * @return boolean, true si la pila no esta vecia, false eoc
-	 * @throws StackException 
+	 * @throws StackException Si la pila está vacía
 	 */
 	public void execute(CPU cpu) throws StackException{
 		System.out.println("Consola: " + cpu.pop());		

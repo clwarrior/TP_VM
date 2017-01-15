@@ -9,7 +9,7 @@ import tp.pr3.mv.Engine;
  * Clase que nos permite sustutuir una instruccion del programa de Bytecode por otra que intrucimos por
  * pantalla. Tiene un int que indica el numero de la instruccion a a sustituir
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class Replace implements Command{
 
@@ -33,16 +33,17 @@ public class Replace implements Command{
 	 * Metodo que hace que el engine dado por parametro reemplace la instruccion de la posicion 
 	 * replace del programa que tiene almacenado
 	 * @param engine, que queremos que reemplace una instruccion de su programa almacenado
-	 * @throws BadFormatByteCode 
-	 * @throws ArrayException 
+	 * @throws BadFormatByteCode Lanza la excepcion BadFormatByteCode cuando el bytecode introducido no 
+	 * tiene un formato válido
+	 * @throws ArrayException Lanza ArrayException cuando la instrucción a reemplazar no existe
 	 */
 	public void execute(Engine engine) throws ArrayException, BadFormatByteCode{
 		engine.replaceInstruc(replace);
 	}
 	/**
-	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "replace" 
-	 * (independiemtemente de mayusculas o minusculas), si no devuelve null
-	 * @return nuevo objeyo de clase Replace (si procede) o null
+	 * {@inheritDoc}
+	 * s debe tener longitud 2, s[0] debe ser "REPLACEBC".
+	 * @return Command Replace, si corresponde, o null, si no
 	 */
 	public Command parse(String[] s){
 		if (s.length==2 && s[0].equalsIgnoreCase("REPLACEBC"))

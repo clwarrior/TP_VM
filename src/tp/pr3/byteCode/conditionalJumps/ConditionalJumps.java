@@ -69,7 +69,8 @@ abstract public class ConditionalJumps implements ByteCode{
 	 * Método abstracto que devuelve un ByteCode de la condición correspondiente al String dado, 
 	 * o null si no corresponde a ninguna.
 	 * @param s El Array de String que vamos a interpretar
-	 * @return El ByteCode correspondiente, o null si no coincide con ninguno
+	 * @return El ByteCode correspondiente, o null si no coincide con ninguno 
+	 * de la cpu
 	 */
 	public abstract ByteCode parseAux(String[] s);
 	

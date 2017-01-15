@@ -7,7 +7,7 @@ import tp.pr3.exceptions.StackException;
  * Clase hija de la clase Arithmetics.
  * Esta clase realiza la instruccion de multiplicar dos numeros.
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class Mul extends Arithmetics{
 	
@@ -23,8 +23,7 @@ public class Mul extends Arithmetics{
 	 * resultado se añade a la pila.
 	 * @param cpu Una CPU de cuya pila vamos a extraer los operandos y donde vamos a almacenar
 	 * el resultado
-	 * @return boolean, true si ha podido realizarse la operacion y false eoc
-	 * @throws StackException 
+	 * @throws StackException Si la pila está llena
 	 */
 	public void executeAux(CPU cpu, int op1, int op2) throws StackException{
 		int result = op2 * op1;

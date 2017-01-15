@@ -7,7 +7,7 @@ import tp.pr3.mv.Engine;
  * Clase que nos permite mostrar la ayuda asociada a un programa de Bytecode.
  * No tiene argumentos.
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class Help implements Command{
 
@@ -20,8 +20,9 @@ public class Help implements Command{
 		engine.showHelp();
 	}
 	/**
-	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "help" 
-	 * (independiemtemente de mayusculas o minusculas), si no devuelve null
+	 * Crea un nuevo objeto de la clase siempre que la cadena de strings tenga longitud uno y 
+	 *  el string dado por parametro sea "help" (independiemtemente de mayusculas o minusculas), 
+	 *  si no devuelve null
 	 * @return nuevo objeyo de clase Help (si procede) o null
 	 */
 	public Command parse(String[] s){

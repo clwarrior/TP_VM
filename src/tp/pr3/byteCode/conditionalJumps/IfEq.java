@@ -30,6 +30,7 @@ public class IfEq extends ConditionalJumps{
 	/**
 	 * {@inheritDoc}
 	 * La condición evaluada es "op1 == op2".
+	 * @throws ExecutionError Lanza un error de ejecución cuando se intenta saltar a una posición no válida
 	 */
 	public void executeAux(CPU cpu, int op1, int op2) throws ExecutionError{
 		if(op2!=op1)

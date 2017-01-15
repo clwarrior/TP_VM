@@ -6,7 +6,7 @@ import tp.pr3.mv.Engine;
  * Clase hija de la clase Command.
  * Clase que nos permite acabar el programa de Bytecode. No tiene atributos
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class Quit implements Command{
 
@@ -19,9 +19,9 @@ public class Quit implements Command{
 		engine.quitProgram();
 	}
 	/**
-	 * Crea un nuevo objeto de la clase siempre que el el string dado por parametro sea "quit" 
-	 * (independiemtemente de mayusculas o minusculas), si no devuelve null
-	 * @return nuevo objeyo de clase Quit (si procede) o null
+	 * {@inheritDoc}
+	 * s debe tener longitud 1, s[0] debe ser "QUIT" 
+	 * @return Command Quit, si corresponde, o null, si no
 	 */
 	public Command parse(String[] s){
 		if (s.length==1 && s[0].equalsIgnoreCase("QUIT"))

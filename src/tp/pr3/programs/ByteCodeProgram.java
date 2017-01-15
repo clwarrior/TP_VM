@@ -4,9 +4,9 @@ import tp.pr3.byteCode.ByteCode;
 import tp.pr3.exceptions.ArrayException;
 
 /**
- * Clase que contiene los metodos y atributos del programa de ByteCodes. Se trata de un array normal de tamaño maximo 100
+ * Clase que contiene los metodos y atributos del programa de ByteCodes
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class ByteCodeProgram {
 
@@ -43,7 +43,7 @@ public class ByteCodeProgram {
 	 * Devuelve el ByteCode almacenado en una cierta posicion del programa
 	 * @param pos Un int que indica la posicion del elemento que se desea consultar
 	 * @return Un ByteCode que contiene el la instuccion almacenada en el programa en la posicion requerida
-	 * @throws ArrayException 
+	 * @throws ArrayException Posición del Array no válida
 	 */
 	public ByteCode at(int pos) throws ArrayException{
 		if (pos >= 0 && pos < last)
@@ -54,7 +54,7 @@ public class ByteCodeProgram {
 	/**
 	 * Añade al programa una instruccion dada
 	 * @param code Un ByteCode que contiene la instruccion que se desea añadir al programa
-	 * @throws ArrayException 
+	 * @throws ArrayException Límite de bytecodes sobrepasado
 	 */
 	public void add(ByteCode code) throws ArrayException{
 		if(this.last!=MAX){
@@ -68,7 +68,7 @@ public class ByteCodeProgram {
 	 * Sustituye la instruccion del programa ubicada en una posicion concreta por una dada
 	 * @param code Un ByteCode que contiene la instruccion que se desea introducir en el programa
 	 * @param pos Un int que contiene la posicion en la que se desea introducir la instruccion dada
-	 * @throws ArrayException 
+	 * @throws ArrayException Array lleno
 	 */
 	public void emplace(ByteCode code, int pos) throws ArrayException{
 		if (pos >= 0 && pos < MAX)

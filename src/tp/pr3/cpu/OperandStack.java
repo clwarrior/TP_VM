@@ -6,7 +6,7 @@ import tp.pr3.exceptions.StackException;
  * Clase que contiene los metodos y atributos de la pila. Se trata de un array de tamaño maximo 100
  * que funciona como una pila
  * @author Claudia Guerrero y Rafael Herrera
- * @version 2.0
+ * @version 3.0
  */
 public class OperandStack {
 
@@ -42,7 +42,7 @@ public class OperandStack {
 	 /**
 	  * Extrae el ultimo elemento almacenado en la pila
 	  * @return Un int que contiene el ultimo elemento almacenado en la pila
-	 * @throws StackException 
+	 * @throws StackException Pila vacía
 	  */
 	public int pop() throws StackException{
 		if(this.empty())
@@ -55,7 +55,7 @@ public class OperandStack {
 	/**
 	 * Introduce un elemento en la pila si esta no esta llena. Si lo esta, devuelve error
 	 * @param elem Un int que contiene el elemento a introducir en la pila
-	 * @return Un boolean que vale true si se ha podido introducir el elemento en la pila y false en caso contrario
+	 * @throws StackException Pila llena
 	 */
 	public void push(int elem) throws StackException{
 		if (size == TAM)

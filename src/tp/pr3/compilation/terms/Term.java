@@ -21,7 +21,7 @@ public interface Term {
 	/**
 	 * Se compila y devuelve el ByteCode correspondiente
 	 * @param compiler Compilador
-	 * @return ByteCode correspondiente al término
+	 * @return ByteCode Bytecode correspondiente al término
 	 * @throws CompilationError Error de compilación
 	 */
 	ByteCode compile(Compiler compiler) throws CompilationError;
