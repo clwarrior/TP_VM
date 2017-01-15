@@ -1,14 +1,15 @@
-package tp.pr3.lexicalAnalysis.instructions;
+package tp.pr3.compilation.instructions.assignments;
 
 import tp.pr3.exceptions.ArrayException;
 import tp.pr3.exceptions.CompilationError;
 import tp.pr3.exceptions.LexicalAnalysisException;
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.byteCode.memoryMove.Store;
-import tp.pr3.byteCodeGeneration.Compiler;
-import tp.pr3.lexicalAnalysis.LexicalParser;
-import tp.pr3.lexicalAnalysis.term.Term;
-import tp.pr3.lexicalAnalysis.term.TermParser;
+import tp.pr3.compilation.Compiler;
+import tp.pr3.compilation.LexicalParser;
+import tp.pr3.compilation.instructions.Instruction;
+import tp.pr3.compilation.terms.Term;
+import tp.pr3.compilation.terms.TermParser;
 
 public class SimpleAssignment implements Instruction {
 	private String var_name;

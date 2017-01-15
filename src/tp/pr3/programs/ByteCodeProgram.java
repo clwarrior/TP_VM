@@ -1,5 +1,6 @@
-package tp.pr3.byteCode;
+package tp.pr3.programs;
 
+import tp.pr3.byteCode.ByteCode;
 import tp.pr3.exceptions.ArrayException;
 
 /**

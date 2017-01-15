@@ -1,9 +1,12 @@
-package tp.pr3.lexicalAnalysis.instructions;
+package tp.pr3.compilation.instructions;
 
+import tp.pr3.compilation.LexicalParser;
+import tp.pr3.compilation.instructions.assignments.CompoundAssignment;
+import tp.pr3.compilation.instructions.assignments.SimpleAssignment;
+import tp.pr3.compilation.instructions.jumps.IfThen;
+import tp.pr3.compilation.instructions.jumps.While;
 import tp.pr3.exceptions.ArrayException;
 import tp.pr3.exceptions.LexicalAnalysisException;
-import tp.pr3.lexicalAnalysis.LexicalParser;
-import tp.pr3.lexicalAnalysis.instructions.Instruction;
 
 public class InstructionParser {
 

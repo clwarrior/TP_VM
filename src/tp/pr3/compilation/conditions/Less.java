@@ -1,8 +1,8 @@
-package tp.pr3.lexicalAnalysis.condition;
+package tp.pr3.compilation.conditions;
 
-import tp.pr3.lexicalAnalysis.term.Term;
 import tp.pr3.byteCode.conditionalJumps.ConditionalJumps;
 import tp.pr3.byteCode.conditionalJumps.IfLe;
+import tp.pr3.compilation.terms.Term;
 
 public class Less extends Condition{
 

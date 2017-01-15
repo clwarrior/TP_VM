@@ -1,8 +1,8 @@
-package tp.pr3.lexicalAnalysis.instructions;
+package tp.pr3.compilation.instructions;
 
-import tp.pr3.lexicalAnalysis.LexicalParser;
 import tp.pr3.byteCode.Halt;
-import tp.pr3.byteCodeGeneration.Compiler;
+import tp.pr3.compilation.Compiler;
+import tp.pr3.compilation.LexicalParser;
 import tp.pr3.exceptions.ArrayException;
 
 public class Return implements Instruction {

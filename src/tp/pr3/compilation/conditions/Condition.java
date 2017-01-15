@@ -1,14 +1,14 @@
-package tp.pr3.lexicalAnalysis.condition;
+package tp.pr3.compilation.conditions;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.byteCode.conditionalJumps.ConditionalJumps;
-import tp.pr3.byteCodeGeneration.Compiler;
+import tp.pr3.compilation.Compiler;
+import tp.pr3.compilation.LexicalParser;
+import tp.pr3.compilation.terms.Term;
+import tp.pr3.compilation.terms.TermParser;
 import tp.pr3.exceptions.ArrayException;
 import tp.pr3.exceptions.CompilationError;
 import tp.pr3.exceptions.LexicalAnalysisException;
-import tp.pr3.lexicalAnalysis.LexicalParser;
-import tp.pr3.lexicalAnalysis.term.Term;
-import tp.pr3.lexicalAnalysis.term.TermParser;
 
 public abstract class Condition {
 	protected Term term1;

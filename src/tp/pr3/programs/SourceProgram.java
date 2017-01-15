@@ -1,4 +1,4 @@
-package tp.pr3.analyze;
+package tp.pr3.programs;
 
 import tp.pr3.exceptions.ArrayException;
 

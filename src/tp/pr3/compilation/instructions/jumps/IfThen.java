@@ -1,13 +1,14 @@
-package tp.pr3.lexicalAnalysis.instructions;
+package tp.pr3.compilation.instructions.jumps;
 
-import tp.pr3.analyze.ParsedProgram;
 import tp.pr3.exceptions.ArrayException;
 import tp.pr3.exceptions.CompilationError;
 import tp.pr3.exceptions.LexicalAnalysisException;
-import tp.pr3.lexicalAnalysis.LexicalParser;
-import tp.pr3.lexicalAnalysis.condition.Condition;
-import tp.pr3.lexicalAnalysis.condition.ConditionParser;
-import tp.pr3.byteCodeGeneration.Compiler;
+import tp.pr3.programs.ParsedProgram;
+import tp.pr3.compilation.Compiler;
+import tp.pr3.compilation.LexicalParser;
+import tp.pr3.compilation.conditions.Condition;
+import tp.pr3.compilation.conditions.ConditionParser;
+import tp.pr3.compilation.instructions.Instruction;
 
 public class IfThen implements Instruction {
 

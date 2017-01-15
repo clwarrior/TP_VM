@@ -1,12 +1,19 @@
-package tp.pr3.lexicalAnalysis.instructions;
+package tp.pr3.compilation.instructions.assignments;
 
 import tp.pr3.byteCode.ByteCode;
-import tp.pr3.byteCode.arithmetics.*;
+import tp.pr3.byteCode.arithmetics.Add;
+import tp.pr3.byteCode.arithmetics.Div;
+import tp.pr3.byteCode.arithmetics.Mul;
+import tp.pr3.byteCode.arithmetics.Sub;
 import tp.pr3.byteCode.memoryMove.Store;
-import tp.pr3.byteCodeGeneration.Compiler;
-import tp.pr3.exceptions.*;
-import tp.pr3.lexicalAnalysis.LexicalParser;
-import tp.pr3.lexicalAnalysis.term.*;
+import tp.pr3.compilation.Compiler;
+import tp.pr3.compilation.LexicalParser;
+import tp.pr3.compilation.instructions.Instruction;
+import tp.pr3.compilation.terms.Term;
+import tp.pr3.compilation.terms.TermParser;
+import tp.pr3.exceptions.ArrayException;
+import tp.pr3.exceptions.CompilationError;
+import tp.pr3.exceptions.LexicalAnalysisException;
 
 public class CompoundAssignment implements Instruction {
 	private String var_name;

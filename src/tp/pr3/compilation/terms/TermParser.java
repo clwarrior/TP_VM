@@ -1,4 +1,4 @@
-package tp.pr3.lexicalAnalysis.term;
+package tp.pr3.compilation.terms;
 
 public class TermParser{
 	private static final Term[] terms = {new Number(), new Variable()};

@@ -1,11 +1,11 @@
-package tp.pr3.byteCodeGeneration;
+package tp.pr3.compilation;
 
-import tp.pr3.analyze.ParsedProgram;
 import tp.pr3.byteCode.ByteCode;
-import tp.pr3.byteCode.ByteCodeProgram;
+import tp.pr3.compilation.instructions.Instruction;
 import tp.pr3.exceptions.ArrayException;
 import tp.pr3.exceptions.CompilationError;
-import tp.pr3.lexicalAnalysis.instructions.Instruction;
+import tp.pr3.programs.ByteCodeProgram;
+import tp.pr3.programs.ParsedProgram;
 
 public class Compiler {
 	private ByteCodeProgram byteCode;

@@ -1,7 +1,7 @@
-package tp.pr3.lexicalAnalysis.condition;
+package tp.pr3.compilation.conditions;
 
+import tp.pr3.compilation.LexicalParser;
 import tp.pr3.exceptions.LexicalAnalysisException;
-import tp.pr3.lexicalAnalysis.LexicalParser;
 
 public class ConditionParser{
 	

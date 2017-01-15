@@ -6,14 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-
-import tp.pr3.byteCodeGeneration.Compiler;
-import tp.pr3.analyze.*;
 import tp.pr3.byteCode.*;
 import tp.pr3.command.*;
+import tp.pr3.compilation.Compiler;
+import tp.pr3.compilation.LexicalParser;
 import tp.pr3.cpu.CPU;
 import tp.pr3.exceptions.*;
-import tp.pr3.lexicalAnalysis.LexicalParser;
+import tp.pr3.programs.ByteCodeProgram;
+import tp.pr3.programs.ParsedProgram;
+import tp.pr3.programs.SourceProgram;
 
 
 /**

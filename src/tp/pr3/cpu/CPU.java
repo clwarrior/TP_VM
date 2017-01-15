@@ -1,8 +1,8 @@
 package tp.pr3.cpu;
 
 import tp.pr3.byteCode.ByteCode;
-import tp.pr3.byteCode.ByteCodeProgram;
 import tp.pr3.exceptions.*;
+import tp.pr3.programs.ByteCodeProgram;
 
 /**
  * Clase que contiene los metodos y atributos de la CPU

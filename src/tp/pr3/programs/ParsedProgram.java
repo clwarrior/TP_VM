@@ -1,7 +1,7 @@
-package tp.pr3.analyze;
+package tp.pr3.programs;
 
+import tp.pr3.compilation.instructions.Instruction;
 import tp.pr3.exceptions.ArrayException;
-import tp.pr3.lexicalAnalysis.instructions.Instruction;
 
 public class ParsedProgram {
 	private Instruction[] pProgram;

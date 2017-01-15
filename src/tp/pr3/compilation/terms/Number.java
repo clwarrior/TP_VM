@@ -1,8 +1,8 @@
-package tp.pr3.lexicalAnalysis.term;
+package tp.pr3.compilation.terms;
 
 import tp.pr3.byteCode.ByteCode;
-import tp.pr3.byteCodeGeneration.Compiler;
 import tp.pr3.byteCode.Push;
+import tp.pr3.compilation.Compiler;
 
 public class Number implements Term{
 	private int number_name;
