@@ -1,6 +1,5 @@
-package tp.pr3.byteCode.memoryMove;
+package tp.pr3.byteCode;
 
-import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
 import tp.pr3.exceptions.*;
 
@@ -10,22 +9,25 @@ import tp.pr3.exceptions.*;
  * @author Claudia Guerrero y Rafael Herrera
  * @version 3.0
  */
-public class Store extends MemoryMove{
+public class Store implements ByteCode{
+	
+	/**
+	 * Int que indica la posición de memoria a la que se va a acceder
+	 */
+	private int num;
 	
 	/**
 	 * Constructor dada la posición de memoria.
-	 * @param num Int al que se inicializa this.num
+	 * @param num Int al que queremos inicializar this.num
 	 */
 	public Store(int num){
-		super(num);
+		this.num=num;
 	}
 	
 	/**
 	 * Constructor sin parámetros.
 	 */
-	public Store() {
-		super();
-	}
+	public Store(){}
 	
 	/**
 	 * {@inheritDoc}
@@ -39,12 +41,13 @@ public class Store extends MemoryMove{
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 * s[0] debe ser "STORE" y s[1] debe ser un numero mayor o igual que 0.
+	 * Método abstracto que devuelve un ByteCode STORE si el string dado corresponde o null si no
+	 * @param s Array de String que contiene la instrucción
+	 * @return Store si corresponde o null si no
 	 */
-	public ByteCode parseAux(String[] s){
+	public ByteCode parse(String[] s){
 		try {
-			if (s[0].equalsIgnoreCase("STORE") && Integer.parseInt(s[1]) >= 0)
+			if (s.length == 2 && s[0].equalsIgnoreCase("STORE") && Integer.parseInt(s[1]) >= 0)
 				return new Store(Integer.parseInt(s[1]));
 			else
 				return null;
@@ -53,7 +56,7 @@ public class Store extends MemoryMove{
 			return null;
 		}
 	}
-
+	
 	/**
 	 * Redefine el metodo toString para la clase Store.
 	 */

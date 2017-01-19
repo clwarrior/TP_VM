@@ -33,7 +33,7 @@ public class Number implements Term{
 	 * @return Term Number si corresponde, o null, si no
 	 * @throws NumberFormatException Excepción lanzada si el string dado no almacena un numero
 	 */
-	public Term parse(String term) throws NumberFormatException{
+	public Term parse(String term){
 		try{
 			int num = Integer.parseInt(term);
 			return new Number(num);

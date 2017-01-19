@@ -1,4 +1,4 @@
-package tp.pr3.byteCode.memoryMove;
+package tp.pr3.byteCode;
 
 import tp.pr3.byteCode.ByteCode;
 import tp.pr3.cpu.CPU;
@@ -10,22 +10,25 @@ import tp.pr3.exceptions.*;
  * @author Claudia Guerrero y Rafael Herrera
  * @version 3.0
  */
-public class Load extends MemoryMove {
+public class Load implements ByteCode{
+	
+	/**
+	 * Int que indica la posición de memoria a la que se va a acceder
+	 */
+	protected int num;
 	
 	/**
 	 * Constructor dada la posición de memoria.
-	 * @param num Int al que se quiere inicializar this.num
+	 * @param num Int al que queremos inicializar this.num
 	 */
 	public Load(int num){
-		super(num);
+		this.num=num;
 	}
 	
 	/**
 	 * Constructor sin parámetros.
 	 */
-	public Load() {
-		super();
-	}
+	public Load(){}
 	
 	/**
 	 * {@inheritDoc}
@@ -39,12 +42,12 @@ public class Load extends MemoryMove {
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 * s[0] debe ser "LOAD" y s[1] debe ser un número mayor o igual que 0
-	 * @return ByteCode Load, si corresponde, o null, si no
+	 * Método abstracto que devuelve un ByteCode LOAD si el string dado corresponde o null si no
+	 * @param s Array de String que contiene la instrucción
+	 * @return Load si corresponde o null si no
 	 */
-	public ByteCode parseAux(String[] s){
-		if (s[0].equalsIgnoreCase("LOAD") && Integer.parseInt(s[1]) >= 0) {
+	public ByteCode parse(String[] s){
+		if (s.length == 2 && s[0].equalsIgnoreCase("LOAD") && Integer.parseInt(s[1]) >= 0) {
 			try {
 				return new Load(Integer.parseInt(s[1]));
 			}

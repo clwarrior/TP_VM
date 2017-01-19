@@ -2,7 +2,7 @@ package tp.pr3.compilation.instructions.assignments;
 
 import tp.pr3.exceptions.*;
 import tp.pr3.byteCode.ByteCode;
-import tp.pr3.byteCode.memoryMove.Store;
+import tp.pr3.byteCode.Store;
 import tp.pr3.compilation.Compiler;
 import tp.pr3.compilation.LexicalParser;
 import tp.pr3.compilation.instructions.Instruction;
@@ -44,22 +44,34 @@ public class SimpleAssignment implements Instruction {
 	 * @return SimpleAssignment, si corresponde, o null, si no
 	 */
 	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException{
-		char name = words[0].charAt(0);
-		if (!('a' <= name && name <= 'z') || words.length!=3 || !words[1].equals("="))
-			return null;
-		else{
-			Term term = TermParser.parse(words[2]);
-			if(term == null)
-				throw new LexicalAnalysisException("Instrucción no válida");
+		if(words.length==3){
+			char name = words[0].charAt(0);
+			if (!('a' <= name && name <= 'z') || !words[1].equals("="))
+				return null;
 			else{
-				return new SimpleAssignment(words[0], term);
+				Term term = TermParser.parse(words[2]);
+				if(term == null)
+					throw new LexicalAnalysisException("Instrucción no válida");
+				else{
+					return new SimpleAssignment(words[0], term);
+				}
 			}
 		}
+		else
+			return null;
 	}
 	/**
 	 * {@inheritDoc}
 	 * Concretamente, la transforma en los ByteCode del término y de la variable a la que se asigna.
 	 */
+	/*En esta clase, puede aparecer la excepción CompilationError por dos motivos:
+	*  - Al compilar rhs, en cuyo caso queremos que lo lance para que la instrucción sea incorrecta
+	*    ya que no se puede inicializar una variable a la derecha de la asignación.
+	*  - Al buscar la variable de la izquierda de la asignación, en cuyo caso, tratamos la excepción para crear
+	*    la variable ya que lo entendemos como una inicialización. No podemos añadir directamente la variable 
+	*    porque hemos hecho que la función getIndex (utilizada en la compilación de rhs) lance CompilationError
+	*    si la variable no está, y no se puede quitar porque hay lugares donde necesitamos que lo haga.
+	*/
 	public void compile(Compiler compiler) throws CompilationError, ArrayException {
 		ByteCode b = this.rhs.compile(compiler);
 		compiler.addByteCode(b);
@@ -70,8 +82,6 @@ public class SimpleAssignment implements Instruction {
 		catch(CompilationError e) {
 			index = compiler.addVariable(var_name);
 		}
-		finally {
-			compiler.addByteCode(new Store(index));
-		}
+		compiler.addByteCode(new Store(index));
 	}
 }

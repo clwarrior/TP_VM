@@ -46,8 +46,14 @@ public class Replace implements Command{
 	 * @return Command Replace, si corresponde, o null, si no
 	 */
 	public Command parse(String[] s){
-		if (s.length==2 && s[0].equalsIgnoreCase("REPLACEBC"))
-			return new Replace(Integer.parseInt(s[1]));
+		if (s.length==2 && s[0].equalsIgnoreCase("REPLACEBC")){
+			try{
+				return new Replace(Integer.parseInt(s[1]));
+			}
+			catch(NumberFormatException e){
+				return null;
+			}
+		}
 		else
 			return null;
 	}

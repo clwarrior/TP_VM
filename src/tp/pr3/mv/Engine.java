@@ -42,6 +42,11 @@ public class Engine {
 	private boolean end;
 	
 	/**
+	 * Booleano que indica si el comando ejecutado ha sido HELP
+	 */
+	private boolean help;
+	
+	/**
 	 * Variable de lectura
 	 */
 	private static Scanner entrada = new Scanner(System.in);
@@ -54,6 +59,7 @@ public class Engine {
 		this.sProgram = new SourceProgram();
 		this.pProgram = new ParsedProgram();
 		this.end = false;
+		this.help = false;
 	}
 
 	/**
@@ -72,7 +78,7 @@ public class Engine {
 				System.out.println("Comienza la ejecución de " + comando1.toString());
 				try {
 					comando1.execute(this);
-					if (comando1.getClass() != Help.class) {
+					if (!help) {
 						if(sProgram.length() != 0)
 							System.out.println("\nPrograma fuente almacenado:\n\n" + sProgram);
 						if(bytecodeProgram.size() != 0)
@@ -82,6 +88,7 @@ public class Engine {
 				catch(ExecutionError | LexicalAnalysisException | ArrayException | FileException | BadFormatByteCode | DivisionByZero | StackException | CompilationError e){
 					System.out.println(e);
 				}
+				help = false;
 			}
 		} while(!this.end);
 		System.out.println("Cerrando máquina virtual...");
@@ -100,6 +107,7 @@ public class Engine {
 	 */
 	public void showHelp(){
 		CommandParser.showHelp();
+		help = true;
 	}
 	
 	/**

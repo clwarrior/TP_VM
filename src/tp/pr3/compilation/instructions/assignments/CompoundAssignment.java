@@ -1,8 +1,8 @@
 package tp.pr3.compilation.instructions.assignments;
 
 import tp.pr3.byteCode.ByteCode;
+import tp.pr3.byteCode.Store;
 import tp.pr3.byteCode.arithmetics.*;
-import tp.pr3.byteCode.memoryMove.Store;
 import tp.pr3.compilation.Compiler;
 import tp.pr3.compilation.LexicalParser;
 import tp.pr3.compilation.instructions.Instruction;
@@ -62,25 +62,39 @@ public class CompoundAssignment implements Instruction {
 	 * @return CompoundAssignment, si corresponde, o null, si no
 	 */
 	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException {
-		char name = words[0].toLowerCase().charAt(0);
-		if (!('a' <= name && name <= 'z') || words.length!=5 || !words[1].equals("=") ||
-				(!words[3].equals("+") && !words[3].equals("-") && !words[3].equals("*") && !words[3].equals("/")))
-			return null;
-		else{
-			Term term1 = TermParser.parse(words[2]);
-			Term term2 = TermParser.parse(words[4]);
-			if(term1 == null || term2 == null)
-				throw new LexicalAnalysisException("(Instrucción no válida)");
+		if(words.length == 5){
+			char name = words[0].toLowerCase().charAt(0);
+			if (!('a' <= name && name <= 'z') || !words[1].equals("=") || 
+					(!words[3].equals("+") && !words[3].equals("-") && !words[3].equals("*") && !words[3].equals("/")))
+				return null;
 			else{
-				return new CompoundAssignment(words[0], words[3], term1, term2);
+				Term term1 = TermParser.parse(words[2]);
+				Term term2 = TermParser.parse(words[4]);
+				if(term1 == null || term2 == null)
+					throw new LexicalAnalysisException("(Instrucción no válida)");
+				else{
+					return new CompoundAssignment(words[0], words[3], term1, term2);
+				}
 			}
 		}
+		else
+			return null;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 * Concretamente, la transforma en los ByteCode de cada término de la operación, de la operación en sí,
 	 * y de el término al que se asigna.
+	 */
+	/*
+	 * En esta clase, puede aparecer la excepción CompilationError por dos motivos:
+	 *  - Al compilar term1 y term2, en cuyo caso queremos que lo lance para que la instrucción sea incorrecta
+	 *    ya que no se puede inicializar una variable a la derecha de la asignación.
+	 *  - Al buscar la variable de la izquierda de la asignación, en cuyo caso, tratamos la excepción para crear
+	 *    la variable ya que lo entendemos como una inicialización. No podemos añadir directamente la variable 
+   	 *    porque hemos hecho que la función getIndex (utilizada en la compilación de term1 y term2) lance CompilationError
+	 *    si la variable no está, y no se puede quitar porque hay lugares donde necesitamos que lo haga.
+	 * 
 	 */
 	public void compile(Compiler compiler) throws CompilationError, ArrayException {
 		ByteCode b1 = this.term1.compile(compiler);
@@ -102,9 +116,7 @@ public class CompoundAssignment implements Instruction {
 		catch(CompilationError e) {
 			index = compiler.addVariable(var_name);
 		}
-		finally {
-			compiler.addByteCode(new Store(index));
-		}
+		compiler.addByteCode(new Store(index));
 		
 	}
 }

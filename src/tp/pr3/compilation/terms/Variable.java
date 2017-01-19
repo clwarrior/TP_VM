@@ -1,7 +1,7 @@
 package tp.pr3.compilation.terms;
 
 import tp.pr3.byteCode.ByteCode;
-import tp.pr3.byteCode.memoryMove.Load;
+import tp.pr3.byteCode.Load;
 import tp.pr3.compilation.Compiler;
 import tp.pr3.exceptions.CompilationError;
 /**
